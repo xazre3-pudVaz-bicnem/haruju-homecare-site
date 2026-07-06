@@ -1,0 +1,435 @@
+import Link from 'next/link'
+import Hero from '@/components/sections/Hero'
+import Reveal from '@/components/ui/Reveal'
+import SectionTitle from '@/components/ui/SectionTitle'
+import ServiceCard from '@/components/ui/ServiceCard'
+import FlowStep from '@/components/ui/FlowStep'
+import RecruitCard from '@/components/ui/RecruitCard'
+import PlaceholderImage from '@/components/ui/PlaceholderImage'
+import ContactBlock from '@/components/ui/ContactBlock'
+import CompanyInfo from '@/components/ui/CompanyInfo'
+import Icon from '@/components/ui/Icon'
+import Illustration from '@/components/ui/Illustration'
+import { Section, CheckList, ButtonLink, InfoNote } from '@/components/ui/primitives'
+import { PHOTO } from '@/lib/images'
+import {
+  SERVICES,
+  FLOW_STEPS,
+  BODY_CARE,
+  LIFE_SUPPORT,
+  JOBS,
+  RECRUIT_POINTS,
+} from '@/lib/constants'
+import { NEWS, formatDate } from '@/lib/news'
+import { faqSchema } from '@/lib/seo'
+import { FAQS } from '@/lib/constants'
+
+export default function HomePage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(FAQS.slice(0, 6))) }}
+      />
+
+      <Hero />
+
+      {/* 2. はるじゅの想い */}
+      <Section tone="white">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <Reveal>
+            <PlaceholderImage
+              src={PHOTO.about.src}
+              alt={PHOTO.about.alt}
+              label="想いセクション写真"
+              ratio="5 / 4"
+              tone="sand"
+              objectPosition="center 35%"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <SectionTitle
+              eyebrow="Our Thought"
+              title={
+                <>
+                  介護を受ける人にも、
+                  <br />
+                  働く人にも、誠実に。
+                </>
+              }
+            />
+            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-700">
+              <p>
+                年齢を重ねても、障がいがあっても、住み慣れたご自宅で自分らしく暮らし続けたい。
+                その当たり前の願いを支えることが、私たちの仕事だと考えています。
+              </p>
+              <p>
+                はるじゅは、ご本人とご家族が抱える不安を少しでも減らせるよう、
+                一人ひとりの生活に合わせた支援を大切にしています。ケアマネジャーや医療機関、
+                行政などの関係機関としっかり連携しながら、地域全体で暮らしを支えます。
+              </p>
+              <p>
+                そして、その支えを担うのはスタッフ一人ひとりです。
+                利用者様に誠実であるために、まず働く人が安心して働ける会社であること。
+                はるじゅはその両方を、これからも大切にしていきます。
+              </p>
+            </div>
+            <div className="mt-8">
+              <ButtonLink href="/about" variant="outline">
+                はるじゅについて
+              </ButtonLink>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 3. サービス紹介 */}
+      <Section tone="paper">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Services"
+            title="はるじゅのサービス"
+            lead="介護保険による訪問介護を中心に、保険外の自費介護、重度訪問介護まで。ご本人の状態やご希望に合わせて、必要な支援を組み合わせてご提案します。"
+            align="center"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SERVICES.map((s, i) => (
+            <Reveal key={s.slug} delay={i * 70}>
+              <ServiceCard
+                name={s.name}
+                href={s.href}
+                lead={s.lead}
+                illust={s.illust}
+                tags={s.tags}
+              />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* 4. 訪問介護でできること */}
+      <Section tone="white">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <Reveal>
+            <SectionTitle
+              eyebrow="Home Care"
+              title={
+                <>
+                  訪問介護で
+                  <br />
+                  できること
+                </>
+              }
+              lead="ホームヘルパーがご自宅にうかがい、身体介護と生活援助の両面から在宅での暮らしをお手伝いします。"
+            />
+            <div className="mt-8">
+              <ButtonLink href="/service/home-care" variant="outline">
+                訪問介護の詳細
+              </ButtonLink>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="space-y-8">
+              <div>
+                <div className="mb-4 flex items-center gap-3">
+                  <Illustration name="bath" size={56} sizes="56px" />
+                  <h3 className="font-serif text-lg text-forest-800">身体介護</h3>
+                </div>
+                <CheckList items={BODY_CARE} columns={2} />
+              </div>
+              <div>
+                <div className="mb-4 flex items-center gap-3">
+                  <Illustration name="laundry" size={56} sizes="56px" />
+                  <h3 className="font-serif text-lg text-forest-800">生活援助</h3>
+                </div>
+                <CheckList items={LIFE_SUPPORT} columns={2} />
+              </div>
+              <InfoNote>
+                実際に受けられる支援の内容には、介護保険制度上の範囲があります。
+                ご希望の支援が対象になるかどうかは、担当のケアマネジャーとご相談ください。
+              </InfoNote>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 5. ご利用の流れ */}
+      <Section tone="leaf">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Flow"
+            title="ご利用の流れ"
+            lead="介護保険を使った訪問介護は、担当のケアマネジャーを通してご利用いただくのが基本です。初めての方にも分かりやすいよう、順を追ってご案内します。"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <Reveal>
+            <ol className="rounded-3xl bg-white p-7 sm:p-9">
+              {FLOW_STEPS.slice(0, 7).map((step, i) => (
+                <FlowStep
+                  key={step.title}
+                  index={i + 1}
+                  title={step.title}
+                  body={step.body}
+                  last={i === 6}
+                />
+              ))}
+            </ol>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="space-y-4">
+              <div className="rounded-3xl border border-leaf-200 bg-white p-6">
+                <h3 className="flex items-center gap-2 font-serif text-lg text-forest-800">
+                  <Icon name="chat" size={20} className="text-leaf-600" />
+                  すでにケアマネジャーがいる方
+                </h3>
+                <p className="mt-3 text-[14px] leading-relaxed text-ink-700">
+                  まずは担当のケアマネジャーへ、訪問介護を利用したい旨をご相談ください。
+                  ケアプランにそって、はるじゅがご自宅にうかがいます。
+                </p>
+              </div>
+              <div className="rounded-3xl border border-leaf-200 bg-white p-6">
+                <h3 className="flex items-center gap-2 font-serif text-lg text-forest-800">
+                  <Icon name="users" size={20} className="text-leaf-600" />
+                  ケアマネジャーの方へ
+                </h3>
+                <p className="mt-3 text-[14px] leading-relaxed text-ink-700">
+                  ケアマネジャーの方からのご相談・お問い合わせも承っています。
+                  担当者会議やサービス調整など、連携してご対応します。
+                </p>
+              </div>
+              <ButtonLink href="/flow">ご利用の流れを詳しく</ButtonLink>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 6. 自費介護 */}
+      <Section tone="white">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <Reveal delay={80} className="lg:order-2">
+            <PlaceholderImage
+              src={PHOTO.privateCare.src}
+              alt={PHOTO.privateCare.alt}
+              label="自費介護写真"
+              ratio="5 / 4"
+              tone="leaf"
+              objectPosition="center 35%"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+            />
+          </Reveal>
+          <Reveal className="lg:order-1">
+            <SectionTitle
+              eyebrow="Private Care"
+              title="保険では届きにくい部分を補う、自費介護"
+              lead="介護保険サービスだけでは対応しきれないお困りごとに、柔軟に対応するのが自費介護です。時間や内容にとらわれず、ご本人・ご家族のご希望に合わせて組み立てられます。"
+            />
+            <div className="mt-6">
+              <CheckList
+                items={[
+                  '長時間の付き添い',
+                  '通院・外出の付き添い',
+                  '介護保険外の生活支援',
+                  'ご家族不在時の見守り',
+                  '柔軟な時間帯のサポート',
+                  '保険サービスとの組み合わせ',
+                ]}
+                columns={2}
+              />
+            </div>
+            <p className="mt-5 text-[13.5px] text-ink-600">
+              料金は内容・時間により異なります。詳細はお問い合わせください。
+            </p>
+            <div className="mt-6">
+              <ButtonLink href="/service/private-care" variant="outline">
+                自費介護の詳細
+              </ButtonLink>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 7. 重度訪問介護 */}
+      <Section tone="paper">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <Reveal>
+            <PlaceholderImage
+              src={PHOTO.severeCare.src}
+              alt={PHOTO.severeCare.alt}
+              label="重度訪問介護写真"
+              ratio="5 / 4"
+              tone="forest"
+              objectPosition="center 30%"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <SectionTitle
+              eyebrow="Severe Home Care"
+              title="生活全般を支える、重度訪問介護"
+              lead="重度の障がいがある方が、住み慣れた地域で暮らし続けられるよう、長時間にわたって生活全般を支えるサービスです。ご本人の生活リズムを大切にしながら支援します。"
+            />
+            <div className="mt-6">
+              <CheckList
+                items={[
+                  '長時間の見守り',
+                  '移動支援',
+                  '身体介護',
+                  '家事援助',
+                  '生活全般の支援',
+                  '生活リズムに合わせた支援',
+                ]}
+                columns={2}
+              />
+            </div>
+            <div className="mt-6">
+              <InfoNote>
+                対象となる方や利用条件は、自治体や支給決定の内容により異なります。
+                まずはご本人の状況をお聞かせください。
+              </InfoNote>
+            </div>
+            <div className="mt-6">
+              <ButtonLink href="/service/severe-home-care" variant="outline">
+                重度訪問介護の詳細
+              </ButtonLink>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 8. 求人セクション */}
+      <Section tone="forest">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <Reveal>
+            <SectionTitle
+              eyebrow="Recruit"
+              tone="light"
+              title={
+                <>
+                  支える人が、
+                  <br />
+                  安心して働ける場所へ。
+                </>
+              }
+            />
+            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-paper-100/85">
+              <p>
+                はるじゅでは、横浜で在宅生活を支える訪問介護スタッフを募集しています。
+                地域に必要とされ、一人ひとりの利用者様とじっくり向き合える仕事です。
+              </p>
+              <p>
+                未経験の方、ブランクのある方も歓迎します。資格を活かしたい方、
+                働き方を相談しながら続けたい方。まずはお気軽にご相談ください。
+              </p>
+            </div>
+            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+              {RECRUIT_POINTS.slice(0, 4).map((p) => (
+                <li key={p.title} className="flex items-start gap-2.5 text-[14px] text-paper-100/90">
+                  <Icon name="check" size={18} className="mt-0.5 shrink-0 text-leaf-300" />
+                  {p.title}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8">
+              <ButtonLink href="/recruit">求人情報を見る</ButtonLink>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <PlaceholderImage
+              src={PHOTO.staffTeam.src}
+              alt={PHOTO.staffTeam.alt}
+              label="スタッフ集合写真"
+              ratio="16 / 9"
+              tone="forest"
+              className="mb-4"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="grid gap-4 sm:grid-cols-2">
+              {JOBS.map((job) => (
+                <div
+                  key={job.slug}
+                  className="rounded-3xl bg-white/[0.07] p-6 ring-1 ring-white/10"
+                >
+                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-500/20 text-leaf-200">
+                    <Icon name="users" size={20} />
+                  </div>
+                  <h3 className="font-serif text-[17px] text-white">{job.name}</h3>
+                  <p className="mt-2 text-[13px] leading-relaxed text-paper-100/75">
+                    {job.lead}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-[12px] text-paper-100/60">
+              給与・待遇などの募集要項は準備中です。詳細は面談時にご案内します。
+            </p>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 9. 会社概要（簡易） */}
+      <Section tone="white">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <Reveal>
+            <SectionTitle
+              eyebrow="Company"
+              title="会社概要"
+              lead="横浜の在宅介護を支える事業所として、地域に根ざした運営を続けています。"
+            />
+            <div className="mt-8">
+              <ButtonLink href="/company" variant="outline">
+                会社概要を詳しく
+              </ButtonLink>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <CompanyInfo compact />
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 10. お知らせ */}
+      <Section tone="paper">
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionTitle eyebrow="News" title="お知らせ" />
+            <Link
+              href="/news"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
+            >
+              すべて見る
+              <Icon name="arrow" size={16} />
+            </Link>
+          </div>
+        </Reveal>
+        <div className="mt-8 divide-y divide-paper-200 overflow-hidden rounded-3xl border border-paper-200 bg-white">
+          {NEWS.map((n) => (
+            <Link
+              key={n.slug}
+              href={`/news/${n.slug}`}
+              className="flex flex-col gap-2 px-6 py-5 transition-colors hover:bg-leaf-50 sm:flex-row sm:items-center sm:gap-6"
+            >
+              <div className="flex items-center gap-4">
+                <time className="text-[13px] text-ink-500" dateTime={n.date}>
+                  {formatDate(n.date)}
+                </time>
+                <span className="rounded-full bg-leaf-100 px-2.5 py-0.5 text-[11px] font-medium text-forest-600">
+                  {n.category}
+                </span>
+              </div>
+              <span className="flex-1 text-[14.5px] font-medium text-forest-800">
+                {n.title}
+              </span>
+              <Icon name="arrow" size={16} className="hidden shrink-0 text-leaf-600 sm:block" />
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      {/* 11. 問い合わせ導線 */}
+      <ContactBlock />
+    </>
+  )
+}

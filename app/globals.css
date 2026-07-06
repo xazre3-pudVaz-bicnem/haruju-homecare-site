@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Fonts ---- */
+  --font-sans: var(--font-noto-sans), "Hiragino Kaku Gothic ProN", "Yu Gothic",
+    "Meiryo", sans-serif;
+  --font-serif: var(--font-noto-serif), "Hiragino Mincho ProN", "Yu Mincho",
+    serif;
+
+  /* ---- Leaf（黄緑・メインカラー） ---- */
+  --color-leaf-50: #f5faec;
+  --color-leaf-100: #f1f8e9;
+  --color-leaf-200: #dcedc1;
+  --color-leaf-300: #c5e29b;
+  --color-leaf-400: #a8d466;
+  --color-leaf-500: #8bc34a;
+  --color-leaf-600: #7cb342;
+  --color-leaf-700: #689f38;
+
+  /* ---- Forest（濃い緑・見出し・信頼感） ---- */
+  --color-forest-400: #4f8262;
+  --color-forest-500: #3f7350;
+  --color-forest-600: #2f5d3a;
+  --color-forest-700: #274d30;
+  --color-forest-800: #1f3d2b;
+  --color-forest-900: #163020;
+
+  /* ---- Paper / 中立色（白・薄グレー・淡ベージュ） ---- */
+  --color-paper-0: #ffffff;
+  --color-paper-50: #f7f8f5;
+  --color-paper-100: #eef1ea;
+  --color-paper-200: #e3e8de;
+  --color-sand-50: #faf7f0;
+  --color-sand-100: #f3ede0;
+
+  /* ---- Ink（本文テキスト） ---- */
+  --color-ink-400: #9aa39a;
+  --color-ink-500: #6b7472;
+  --color-ink-600: #565f5a;
+  --color-ink-700: #444b47;
+  --color-ink-800: #333333;
+  --color-ink-900: #1f3d2b;
+
+  /* ---- Spacing extras ---- */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-30: 7.5rem;
+
+  /* ---- Max-widths ---- */
+  --container-8xl: 88rem;
+
+  /* ---- Radius ---- */
+  --radius-4xl: 2rem;
+}
+
+/* ---- Base ---- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-paper-0);
+  color: var(--color-ink-800);
+  font-feature-settings: "palt";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.9;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-forest-800);
+  line-height: 1.4;
+}
+
+::selection {
+  background-color: var(--color-leaf-500);
+  color: var(--color-paper-0);
+}
+
+/* 見出し用のさりげないアクセントライン */
+.rule-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.rule-accent::before {
+  content: "";
+  display: inline-block;
+  width: 1.75rem;
+  height: 3px;
+  border-radius: 9999px;
+  background-color: var(--color-leaf-500);
+}
+
+/* 大きな数字（ステップ・番号）の下地 */
+.bg-dots {
+  background-image: radial-gradient(
+    rgba(139, 195, 74, 0.18) 1.4px,
+    transparent 1.4px
+  );
+  background-size: 22px 22px;
+}
+
+/* Reveal-on-scroll（JSなしでも表示される段階的強調） */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
