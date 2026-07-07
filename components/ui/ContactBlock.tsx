@@ -33,7 +33,7 @@ export default function ContactBlock() {
             <h3 className="font-serif text-xl text-white">
               サービスに関するご相談
             </h3>
-            <p className="mt-3 flex-1 text-[14px] leading-relaxed text-paper-100/80">
+            <p className="mt-3 flex-1 text-[14px] leading-relaxed text-paper-100/90">
               訪問介護・自費介護・重度訪問介護のご利用について。
               「何から始めればよいか」といった段階からのご相談も歓迎です。
             </p>
@@ -54,7 +54,7 @@ export default function ContactBlock() {
             <h3 className="font-serif text-xl text-white">
               採用に関するご相談
             </h3>
-            <p className="mt-3 flex-1 text-[14px] leading-relaxed text-paper-100/80">
+            <p className="mt-3 flex-1 text-[14px] leading-relaxed text-paper-100/90">
               訪問介護スタッフ・登録ヘルパーなどの募集について。
               未経験・ブランクのある方、話を聞くだけのご相談もお受けします。
             </p>

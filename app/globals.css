@@ -68,12 +68,16 @@ body {
   line-height: 1.9;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: var(--color-forest-800);
-  line-height: 1.4;
+/* 見出しの既定色。@layer base に入れることで、text-white などの
+   ユーティリティが正しく上書きできるようにする（濃色背景で白文字にできる）。 */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-forest-800);
+    line-height: 1.4;
+  }
 }
 
 ::selection {
