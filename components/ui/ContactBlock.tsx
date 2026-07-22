@@ -81,8 +81,8 @@ export default function ContactBlock() {
           <p className="text-xs text-paper-100/60">
             {COMPANY.hours.value}（{COMPANY.holiday.value}） ／ {PHONE_NOTE}
           </p>
-          {(COMPANY.phone.isDummy || COMPANY.hours.isDummy) && (
-            <p className="mt-1 text-[11px] text-leaf-200/70">※電話番号・営業時間は仮情報です</p>
+          {COMPANY.hours.isDummy && (
+            <p className="mt-1 text-[11px] text-leaf-200/70">※営業時間は仮情報です</p>
           )}
         </div>
       </div>

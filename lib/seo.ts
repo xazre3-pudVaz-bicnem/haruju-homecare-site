@@ -77,8 +77,10 @@ export const localBusinessSchema = {
     '横浜市内を中心に訪問介護・自費介護・重度訪問介護を行う地域密着の介護事業所。ケアマネジャーを通したご利用相談、保険外の生活支援、採用情報も掲載。',
   address: {
     '@type': 'PostalAddress',
+    postalCode: COMPANY.postalCode.value,
     addressRegion: COMPANY.addressRegion,
     addressLocality: COMPANY.addressLocality,
+    streetAddress: COMPANY.streetAddress,
     addressCountry: 'JP',
   },
   geo: { '@type': 'GeoCoordinates', latitude: COMPANY.lat, longitude: COMPANY.lng },
@@ -109,8 +111,10 @@ export const organizationSchema = {
   telephone: COMPANY.phone.value,
   address: {
     '@type': 'PostalAddress',
+    postalCode: COMPANY.postalCode.value,
     addressRegion: COMPANY.addressRegion,
     addressLocality: COMPANY.addressLocality,
+    streetAddress: COMPANY.streetAddress,
     addressCountry: 'JP',
   },
 }

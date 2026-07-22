@@ -69,8 +69,11 @@ export default function Footer() {
               <p className="flex items-start gap-2">
                 <Icon name="map" size={16} className="mt-0.5 shrink-0 text-leaf-600" />
                 <span>
-                  〒{COMPANY.postalCode.value} {COMPANY.address.value}
-                  <span className="ml-1 text-[11px] text-ink-400">※仮情報</span>
+                  {!COMPANY.postalCode.isDummy && `〒${COMPANY.postalCode.value} `}
+                  {COMPANY.address.value}
+                  {COMPANY.address.isDummy && (
+                    <span className="ml-1 text-[11px] text-ink-400">※仮情報</span>
+                  )}
                 </span>
               </p>
               <p className="flex items-center gap-2">
@@ -78,13 +81,17 @@ export default function Footer() {
                 <a href={COMPANY.phoneTel} className="hover:text-leaf-700">
                   {COMPANY.phone.value}
                 </a>
-                <span className="text-[11px] text-ink-400">※仮情報</span>
+                {COMPANY.phone.isDummy && (
+                  <span className="text-[11px] text-ink-400">※仮情報</span>
+                )}
               </p>
               <p className="flex items-center gap-2">
                 <Icon name="clock" size={16} className="shrink-0 text-leaf-600" />
                 <span>
                   {COMPANY.hours.value}
-                  <span className="ml-1 text-[11px] text-ink-400">※仮情報</span>
+                  {COMPANY.hours.isDummy && (
+                    <span className="ml-1 text-[11px] text-ink-400">※仮情報</span>
+                  )}
                 </span>
               </p>
             </div>

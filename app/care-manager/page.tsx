@@ -15,7 +15,15 @@ import {
   RelatedLinks,
 } from '@/components/ui/primitives'
 import AreaHighlight from '@/components/sections/AreaHighlight'
-import { SERVICES, CM_SPEC } from '@/lib/constants'
+import {
+  SERVICES,
+  CM_SPEC,
+  CM_WORRIES,
+  CM_REASONS,
+  CM_CASES,
+  COMPANY,
+  PHONE_NOTE,
+} from '@/lib/constants'
 import { PHOTO } from '@/lib/images'
 import { pageMeta, faqSchema } from '@/lib/seo'
 
@@ -76,6 +84,22 @@ const FAQ_ITEMS = [
     q: '空き状況はどこで確認できますか。',
     a: '空き状況は時期によって変動します。お問い合わせいただければ、その時点での対応可否をお伝えします。対応エリアや訪問できる時間帯にも限りがありますので、あわせてご相談ください。',
   },
+  {
+    q: '初回訪問やアセスメントに同席してもらえますか。',
+    a: 'ご希望に応じて、初回訪問やアセスメント、退院前カンファレンスなどに同席します。支援の方向性を早い段階で共有することで、開始後のミスマッチを防ぎます。日程はご相談のうえ調整します。',
+  },
+  {
+    q: '担当者会議への出席や書類のやり取りには対応できますか。',
+    a: 'サービス担当者会議には積極的に出席します。提供票・実績・報告など必要な書類のやり取りにも対応します。ご希望の様式や連絡方法があればお知らせください。',
+  },
+  {
+    q: '医療依存度の高い方や、対応が難しいケースも相談できますか。',
+    a: '主治医・訪問看護と連携しながら対応します。喀痰吸引等の医療的ケアは、研修修了者の在籍状況や条件により対応可否が変わりますので、個別にご確認ください。対応が難しい場合も、正直にお伝えしたうえで代替案を一緒に考えます。',
+  },
+  {
+    q: '急ぎの依頼にも動いてもらえますか。',
+    a: '退院に合わせた立ち上げなど、お急ぎのご相談にもできるかぎり迅速に対応します。まずはお電話ください。その時点での対応可否を早めにお返しします。',
+  },
 ] as const
 
 export default function CareManagerPage() {
@@ -89,10 +113,88 @@ export default function CareManagerPage() {
       <PageHeader
         eyebrow="For Care Managers"
         title="ケアマネジャーの方へ"
-        lead="横浜で在宅生活を支える一員として、居宅介護支援のケアマネジャーの皆さまとの連携を大切にしています。訪問介護・自費介護・重度訪問介護のご依頼を承ります。"
+        lead="「安心して任せられる訪問介護を探している」。そんなケアマネジャーの皆さまへ。磯子区の訪問介護ステーションNAE（株式会社はるじゅ）は、報連相の丁寧さと柔軟な対応で、先生方のケアプランを現場から支えます。"
         crumbs={[{ name: 'ケアマネジャーの方へ', href: '/care-manager' }]}
         image="photo-about-care.webp"
       />
+
+      {/* こんなお困りごとはありませんか */}
+      <Section tone="paper">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Worries"
+            title="こんなお困りごとはありませんか"
+            lead="日々のケアマネジメントのなかで、訪問介護の依頼先についてこんな声をよくうかがいます。"
+            align="center"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          {CM_WORRIES.map((w, i) => (
+            <Reveal key={w} delay={(i % 2) * 70}>
+              <div className="flex h-full items-start gap-4 rounded-3xl border border-paper-200 bg-white p-6">
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-leaf-100 font-serif text-sm font-semibold text-forest-600">
+                  {i + 1}
+                </span>
+                <p className="text-[14.5px] leading-relaxed text-ink-700">{w}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal>
+          <p className="mt-8 text-center text-[15px] font-medium text-forest-700">
+            そのお困りごと、はるじゅ（訪問介護ステーションNAE）にご相談ください。
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* 選ばれる理由（ケアマネ視点） */}
+      <Section tone="white">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Why NAE"
+            title="ケアマネジャーに選ばれる6つの理由"
+            lead="ご利用者様のためであると同時に、先生方が「任せてよかった」と思える連携を大切にしています。"
+            align="center"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {CM_REASONS.map((r, i) => (
+            <Reveal key={r.title} delay={(i % 3) * 70}>
+              <div className="flex h-full flex-col rounded-3xl border border-paper-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-leaf-300 hover:shadow-[0_16px_40px_-12px_rgba(31,61,43,0.16)]">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-leaf-100 text-forest-600">
+                  <Icon name={r.icon} size={24} />
+                </div>
+                <h3 className="font-serif text-lg text-forest-800">{r.title}</h3>
+                <p className="mt-3 text-[14px] leading-relaxed text-ink-700">{r.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* 対応を相談できるケース */}
+      <Section tone="leaf">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Cases"
+            title="対応を相談できるケース"
+            lead="以下は一例です。「このケースは難しいかも」と感じるご相談ほど、まずはお声かけください。対応が難しい場合も、正直にお伝えしたうえで一緒に考えます。"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CM_CASES.map((c, i) => (
+            <Reveal key={c.title} delay={(i % 3) * 70}>
+              <div className="flex h-full flex-col rounded-3xl border border-leaf-200 bg-white p-6">
+                <h3 className="flex items-center gap-2 font-serif text-[17px] text-forest-800">
+                  <Icon name="check" size={18} className="text-leaf-600" />
+                  {c.title}
+                </h3>
+                <p className="mt-2.5 text-[13.5px] leading-relaxed text-ink-700">{c.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
 
       {/* 連携を大切にしています */}
       <Section tone="white">
@@ -307,6 +409,23 @@ export default function CareManagerPage() {
               <ButtonLink href="/flow" variant="outline">
                 ご利用の流れを見る
               </ButtonLink>
+            </div>
+            <div className="mt-8 border-t border-paper-200 pt-6">
+              <p className="text-[13px] text-ink-500">お電話でのご依頼・ご相談</p>
+              <a
+                href={COMPANY.phoneTel}
+                className="mt-1 inline-flex items-center gap-2 font-serif text-3xl font-semibold text-forest-800 transition-colors hover:text-leaf-700"
+              >
+                <Icon name="phone" size={26} className="text-leaf-600" />
+                {COMPANY.phone.value}
+              </a>
+              <p className="mt-2 text-[13px] text-ink-500">
+                受付 {COMPANY.phoneHours.value}
+                {COMPANY.phoneHours.isDummy && (
+                  <span className="ml-1 text-[11px] text-ink-400">※仮情報</span>
+                )}
+                　／　{PHONE_NOTE}
+              </p>
             </div>
           </div>
         </Reveal>

@@ -18,12 +18,13 @@ export const COMPANY = {
   officeName: '訪問介護ステーションNAE',
   officeNameReading: 'なえ',
   representative: { value: '〇〇 〇〇', isDummy: true },
-  postalCode: { value: '〇〇〇-〇〇〇〇', isDummy: true },
-  address: { value: '神奈川県横浜市〇〇区〇〇 0-0-0', isDummy: true },
+  postalCode: { value: '235-0002', isDummy: false },
+  address: { value: '神奈川県横浜市磯子区馬場町6-14', isDummy: false },
   addressRegion: '神奈川県',
-  addressLocality: '横浜市',
-  phone: { value: '000-0000-0000', isDummy: true },
-  phoneTel: 'tel:0000000000',
+  addressLocality: '横浜市磯子区',
+  streetAddress: '馬場町6-14',
+  phone: { value: '045-752-0345', isDummy: false },
+  phoneTel: 'tel:0457520345',
   fax: { value: '000-0000-0000', isDummy: true },
   email: { value: 'info@harju.co.jp', isDummy: true },
   hours: { value: '9:00〜18:00', isDummy: true },
@@ -38,13 +39,13 @@ export const COMPANY = {
   established: { value: '〇〇年〇月', isDummy: true },
   capital: { value: '〇〇〇万円', isDummy: true },
   business: '訪問介護・自費介護・重度訪問介護',
-  areaServed: '横浜市内を中心に対応',
-  /** 横浜市役所付近のおおよその座標（正式住所決定後に差し替え） */
-  lat: 35.4478,
-  lng: 139.6425,
-  googleMapUrl: 'https://maps.google.com/?q=横浜市',
+  areaServed: '横浜市磯子区を中心に横浜市内で対応',
+  /** 磯子区馬場町付近のおおよその座標 */
+  lat: 35.4009,
+  lng: 139.6205,
+  googleMapUrl: 'https://maps.google.com/?q=神奈川県横浜市磯子区馬場町6-14',
   googleMapEmbedUrl:
-    'https://maps.google.com/maps?q=%E6%A8%AA%E6%B5%9C%E5%B8%82&hl=ja&z=13&ie=UTF8&iwloc=&output=embed',
+    'https://maps.google.com/maps?q=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%A3%AF%E5%AD%90%E5%8C%BA%E9%A6%AC%E5%A0%B4%E7%94%BA6-14&hl=ja&z=16&ie=UTF8&iwloc=&output=embed',
 } as const
 
 /** 電話の横に添える一文 */
@@ -70,6 +71,7 @@ export const NAV_ITEMS = [
     ],
   },
   { label: 'ご利用の流れ', href: '/flow' },
+  { label: 'ケアマネの方へ', href: '/care-manager' },
   {
     label: '求人情報',
     href: '/recruit',
@@ -404,11 +406,11 @@ export const SIMPLE_FLOW: { icon: IconName; step: string; title: string; body: s
  * ※空き状況・対応可否はエリアや時期により異なるため、必ず確認する旨を添えて表示する。
  */
 export const SERVICE_AREAS = [
-  '西区', '中区', '南区', '保土ケ谷区', '神奈川区',
-  '港南区', '磯子区', '金沢区', '戸塚区', '栄区',
+  '磯子区', '南区', '港南区', '中区', '金沢区',
+  '保土ケ谷区', '西区', '戸塚区', '栄区',
 ] as const
 export const SERVICE_AREA_NOTE =
-  '上記は横浜市内のエリアの一例です。掲載のない地域もご相談を承ります。空き状況・対応可否はエリアや時期により異なりますので、お住まいの地域が対象になるか、まずはお気軽にお問い合わせください。'
+  '磯子区馬場町の事業所を拠点に、磯子区を中心とした横浜市内へうかがいます。上記はエリアの一例で、掲載のない地域もご相談を承ります。空き状況・対応可否はエリアや時期により異なりますので、お住まいの地域が対象になるか、まずはお気軽にお問い合わせください。'
 
 /** 管理者プロフィール（/about・管理者紹介で使用。顔写真は後日差し替え） */
 export const MANAGER = {
@@ -444,11 +446,65 @@ export const TRAINING = [
   { title: '相談できる体制', body: '困ったとき、迷ったときに一人で抱え込まず相談できる環境を大切にしています。' },
 ] as const
 
+/** ケアマネジャーのよくあるお悩み（/care-manager 冒頭で共感を得る） */
+export const CM_WORRIES = [
+  '急な依頼に対応してくれる訪問介護事業所が見つからない',
+  '頼んだあと、利用者の様子や変化の報告がなかなか上がってこない',
+  '担当者会議やモニタリングの連携が事業所任せになりがち',
+  '医療依存度が高い方や、支援の難しいケースの受け入れ先に困る',
+  '介護保険で足りない部分を、自費で柔軟に補える事業所が少ない',
+  'ヘルパーの入れ替わりが多く、利用者との関係が安定しない',
+] as const
+
+/** ケアマネジャーから見た「はるじゅを選ぶ理由」 */
+export const CM_REASONS = [
+  {
+    icon: 'chat' as IconName,
+    title: '報連相をこちらから欠かさない',
+    body: '「頼んだあとが見えにくい」を作りません。気づいた変化はその都度共有し、モニタリングやケアプラン見直しに使える情報を、こちらから積極的にお渡しします。',
+  },
+  {
+    icon: 'phone' as IconName,
+    title: 'レスポンスが速い',
+    body: '小規模だからこそ、ご連絡への初動が早いのが強みです。対応可否の一次回答をスピーディーにお返しし、退院前カンファなどのタイトな調整にも動きます。',
+  },
+  {
+    icon: 'star' as IconName,
+    title: '介護福祉士の管理者が対応',
+    body: '介護歴10年・介護福祉士の管理者が、ご依頼の相談から支援設計まで一貫して関わります。難しいケースも、経験にもとづいて現実的な落としどころをご提案します。',
+  },
+  {
+    icon: 'leaf' as IconName,
+    title: '柔軟に、断らない姿勢で',
+    body: '「まずは相談を受ける」を大切にしています。時間帯・曜日・支援内容のご要望や、保険＋自費の組み合わせにも、できるかぎり柔軟に対応します。',
+  },
+  {
+    icon: 'shield' as IconName,
+    title: '医療・多職種と連携',
+    body: '主治医・訪問看護・行政・相談支援専門員などと連携し、医療依存度の高い方や障害福祉サービスのケースもご相談いただけます。',
+  },
+  {
+    icon: 'heart' as IconName,
+    title: '担当が変わりにくい安定感',
+    body: '担当ヘルパーをできるだけ固定し、利用者様との関係を大切にします。安定した関わりが、生活の変化への気づきにもつながります。',
+  },
+] as const
+
+/** 対応を相談できるケースの例（/care-manager） */
+export const CM_CASES = [
+  { title: '退院直後・在宅復帰', body: '退院前カンファレンスからの参加や、在宅生活の立ち上げ時の集中的な支援もご相談ください。' },
+  { title: '独居・老々介護', body: '見守りや安否確認を含め、ご家族が近くにいない方の在宅生活を支えます。' },
+  { title: '認知症のある方', body: '生活リズムやご本人のペースを尊重し、混乱を招きにくい関わりを心がけます。' },
+  { title: '医療依存度の高い方', body: '主治医・訪問看護と連携して対応します。喀痰吸引等は体制・条件により要相談です。' },
+  { title: '重度障がい・障害福祉', body: '重度訪問介護など、障害福祉サービスのケースもご相談いただけます。' },
+  { title: '保険外を組み合わせたい', body: '長時間の付き添いや外出同行など、保険で足りない部分を自費で柔軟に補えます。' },
+] as const
+
 /** ケアマネジャー向けの事業所スペック（/care-manager で使用。仮情報は要更新） */
 export const CM_SPEC: { label: string; value: string; isDummy?: boolean }[] = [
   { label: '事業所名', value: '訪問介護ステーションNAE（運営：株式会社はるじゅ）' },
   { label: '提供サービス', value: '訪問介護／自費介護／重度訪問介護' },
-  { label: '対応地域', value: '横浜市内を中心に対応' },
+  { label: '対応地域', value: '磯子区を中心に横浜市内で対応（磯子区馬場町6-14）' },
   { label: '空き状況', value: 'お問い合わせください（随時ご案内します）', isDummy: true },
   { label: '対応可能曜日', value: '平日を中心に対応（土日・祝日はご相談ください）', isDummy: true },
   {

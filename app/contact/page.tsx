@@ -113,10 +113,10 @@ export default function ContactPage() {
                 受付時間 {COMPANY.hours.value}（{COMPANY.holiday.value}）
               </p>
               <p className="mt-1 text-[13px] text-ink-500">{PHONE_NOTE}</p>
-              {(COMPANY.phone.isDummy || COMPANY.hours.isDummy) && (
+              {COMPANY.hours.isDummy && (
                 <div className="mt-6 text-left">
                   <InfoNote>
-                    電話番号・受付時間は現在準備中のため仮情報です（※仮情報）。正式な情報が確定次第、更新します。
+                    営業時間・受付時間は現在準備中のため仮情報です（※仮情報）。正式な情報が確定次第、更新します。
                   </InfoNote>
                 </div>
               )}
