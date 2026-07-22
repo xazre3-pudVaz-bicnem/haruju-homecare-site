@@ -3,6 +3,7 @@ import SectionTitle from '@/components/ui/SectionTitle'
 import Reveal from '@/components/ui/Reveal'
 import FAQAccordion from '@/components/ui/FAQAccordion'
 import ContactBlock from '@/components/ui/ContactBlock'
+import CtaBanner from '@/components/ui/CtaBanner'
 import { Section, InfoNote, RelatedLinks } from '@/components/ui/primitives'
 import { FAQS } from '@/lib/constants'
 import { pageMeta, faqSchema } from '@/lib/seo'
@@ -50,6 +51,14 @@ export default function FaqPage() {
                 制度の対象条件や自己負担、対応エリアは、介護保険制度・自治体の支給決定内容やお住まいの状況により異なります。
                 個別のご事情については、当社または担当のケアマネジャーへご相談ください。
               </InfoNote>
+            </Reveal>
+          </div>
+          <div className="mt-10">
+            <Reveal>
+              <CtaBanner
+                title="疑問が解決しないときは、お気軽に"
+                body="料金や対応エリアの確認、利用できるかどうかのご相談など、ご質問だけでも歓迎します。ご家族・ケアマネジャーの方からのお問い合わせも承ります。"
+              />
             </Reveal>
           </div>
         </div>

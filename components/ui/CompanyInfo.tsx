@@ -6,6 +6,7 @@ type Row = { label: string; value: string; isDummy?: boolean }
 export default function CompanyInfo({ compact = false }: { compact?: boolean }) {
   const rows: Row[] = [
     { label: '会社名', value: COMPANY.name },
+    { label: '事業所名', value: COMPANY.officeName },
     { label: '所在地', value: `〒${COMPANY.postalCode.value} ${COMPANY.address.value}`, isDummy: true },
     { label: '電話番号', value: COMPANY.phone.value, isDummy: COMPANY.phone.isDummy },
     { label: '営業時間', value: COMPANY.hours.value, isDummy: COMPANY.hours.isDummy },

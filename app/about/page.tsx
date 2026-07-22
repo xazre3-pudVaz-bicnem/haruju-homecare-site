@@ -5,7 +5,7 @@ import PlaceholderImage from '@/components/ui/PlaceholderImage'
 import IllustCard from '@/components/ui/IllustCard'
 import ContactBlock from '@/components/ui/ContactBlock'
 import { Section, ButtonLink, InfoNote, RelatedLinks, LeadParagraphs } from '@/components/ui/primitives'
-import { COMPANY } from '@/lib/constants'
+import { COMPANY, MANAGER } from '@/lib/constants'
 import { PHOTO } from '@/lib/images'
 import type { IllustKey } from '@/lib/images'
 import { pageMeta } from '@/lib/seo'
@@ -129,43 +129,61 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* 代表メッセージ */}
-      <Section tone="white">
-        <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      {/* 管理者紹介 */}
+      <Section tone="white" id="manager">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Manager"
+            title="管理者紹介"
+            lead="事業所の運営とサービスの質を支える管理者をご紹介します。"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal>
             <PlaceholderImage
-              alt="株式会社はるじゅ 代表者の写真"
-              label="代表者写真 ※準備中"
+              alt="訪問介護ステーションNAE 管理者の写真"
+              label="管理者写真 ※準備中"
               ratio="4 / 5"
               tone="leaf"
             />
-          </Reveal>
-          <Reveal delay={80}>
-            <SectionTitle eyebrow="Representative" title="代表メッセージ" />
-            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-700">
-              <p>
-                介護の現場に立ってきて感じるのは、暮らしを支えるという仕事の重みと、
-                やりがいの大きさです。ご本人の「ありがとう」の一言や、ご家族が少しほっとした表情は、
-                私たちにとって何よりの励みになります。
-              </p>
-              <p>
-                横浜という地域で、在宅の暮らしを続けたい方を一人でも多く支えたい。
-                そのためには、現場で働くスタッフが誇りを持って、安心して働ける会社であることが欠かせません。
-                利用者様とスタッフ、その両方を大切にする事業所であり続けます。
-              </p>
-              <p>
-                ご本人のこと、ご家族のこと、まずはお話をお聞かせください。
-                これからも地域の皆さまとともに歩んでまいります。
-              </p>
-            </div>
-            <div className="mt-6 border-t border-paper-200 pt-5">
-              <p className="text-[13px] text-ink-500">株式会社はるじゅ 代表</p>
-              <p className="mt-1 font-serif text-lg text-forest-800">
-                {COMPANY.representative.value}
+            <div className="mt-5 rounded-3xl border border-paper-200 bg-paper-50 p-6">
+              <p className="font-serif text-lg text-forest-800">
+                {MANAGER.name.value}
                 <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 align-middle text-[11px] font-medium text-forest-600">
                   ※仮情報
                 </span>
               </p>
+              <p className="mt-1 text-[13px] text-ink-500">{MANAGER.role}</p>
+              <dl className="mt-4 space-y-2.5 text-[13.5px]">
+                <div className="flex gap-3">
+                  <dt className="w-16 shrink-0 font-semibold text-forest-700">介護歴</dt>
+                  <dd className="text-ink-700">{MANAGER.careerYears}</dd>
+                </div>
+                <div className="flex gap-3">
+                  <dt className="w-16 shrink-0 font-semibold text-forest-700">保有資格</dt>
+                  <dd className="text-ink-700">{MANAGER.qualification}</dd>
+                </div>
+                <div className="flex gap-3">
+                  <dt className="w-16 shrink-0 font-semibold text-forest-700">趣味</dt>
+                  <dd className="leading-relaxed text-ink-700">{MANAGER.hobby}</dd>
+                </div>
+              </dl>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <p className="rule-accent text-sm font-semibold tracking-wider text-leaf-700">
+              介護への想い
+            </p>
+            <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-ink-700">
+              {MANAGER.message.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            <div className="mt-6 border-t border-paper-200 pt-5">
+              <p className="text-[13px] text-ink-500">
+                {COMPANY.officeName}（{COMPANY.name}） 管理者
+              </p>
+              <p className="mt-1 font-serif text-lg text-forest-800">{MANAGER.name.value}</p>
             </div>
             <div className="mt-8">
               <ButtonLink href="/company" variant="outline">

@@ -14,7 +14,16 @@ import {
   InfoNote,
   RelatedLinks,
 } from '@/components/ui/primitives'
-import { JOBS, RECRUIT_POINTS, APPLY_STEPS, RECRUIT_FAQS } from '@/lib/constants'
+import {
+  JOBS,
+  RECRUIT_POINTS,
+  APPLY_STEPS,
+  RECRUIT_FAQS,
+  BENEFITS,
+  TRAINING,
+  MANAGER,
+  COMPANY,
+} from '@/lib/constants'
 import { pageMeta } from '@/lib/seo'
 import { PHOTO } from '@/lib/images'
 
@@ -341,6 +350,96 @@ export default function RecruitPage() {
             <div className="mt-6">
               <ButtonLink href="/recruit/work-style" variant="outline">
                 働く環境をもっと見る
+              </ButtonLink>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 福利厚生・教育制度 */}
+      <Section tone="paper">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Benefits & Training"
+            title="福利厚生・教育制度"
+            lead="安心して長く働けるよう、待遇と学びの両面から支えます。詳細は面談の際に個別にご案内します。"
+            align="center"
+          />
+        </Reveal>
+        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-14">
+          <Reveal>
+            <h3 className="mb-5 flex items-center gap-2 font-serif text-lg text-forest-800">
+              <Icon name="shield" size={20} className="text-leaf-600" />
+              福利厚生
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {BENEFITS.map((b) => (
+                <div key={b.title} className="rounded-2xl border border-paper-200 bg-white p-5">
+                  <p className="font-semibold text-forest-800">{b.title}</p>
+                  <p className="mt-1.5 text-[13px] leading-relaxed text-ink-700">{b.body}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <h3 className="mb-5 flex items-center gap-2 font-serif text-lg text-forest-800">
+              <Icon name="star" size={20} className="text-leaf-600" />
+              教育・研修制度
+            </h3>
+            <div className="space-y-3">
+              {TRAINING.map((t) => (
+                <div key={t.title} className="rounded-2xl border border-paper-200 bg-white p-5">
+                  <p className="font-semibold text-forest-800">{t.title}</p>
+                  <p className="mt-1.5 text-[13px] leading-relaxed text-ink-700">{t.body}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+        <Reveal>
+          <div className="mt-8">
+            <InfoNote>
+              給与・待遇などの募集要項は準備中です。福利厚生・研修の詳細は、面談の際に個別にご案内します。
+            </InfoNote>
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* 管理者メッセージ */}
+      <Section tone="white">
+        <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <Reveal>
+            <PlaceholderImage
+              alt="訪問介護ステーションNAE 管理者の写真"
+              label="管理者写真 ※準備中"
+              ratio="4 / 5"
+              tone="leaf"
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <SectionTitle eyebrow="Message" title="管理者からのメッセージ" />
+            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-700">
+              {MANAGER.message.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            <div className="mt-6 border-t border-paper-200 pt-5">
+              <p className="text-[13px] text-ink-500">
+                {COMPANY.officeName} 管理者（{MANAGER.qualification}・介護歴{MANAGER.careerYears}）
+              </p>
+              <p className="mt-1 font-serif text-lg text-forest-800">
+                {MANAGER.name.value}
+                <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 align-middle text-[11px] font-medium text-forest-600">
+                  ※仮情報
+                </span>
+              </p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="/recruit/work-style" variant="outline">
+                スタッフ紹介・働く環境
+              </ButtonLink>
+              <ButtonLink href="/about" variant="ghost">
+                はるじゅについて
               </ButtonLink>
             </div>
           </Reveal>

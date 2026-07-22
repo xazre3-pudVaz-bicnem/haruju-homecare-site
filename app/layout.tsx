@@ -3,6 +3,7 @@ import { Noto_Sans_JP, Noto_Serif_JP } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import FloatingCTA from '@/components/layout/FloatingCTA'
 import { SITE_URL, SITE_NAME } from '@/lib/constants'
 import { localBusinessSchema, organizationSchema } from '@/lib/seo'
 
@@ -61,7 +62,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={`${notoSans.variable} ${notoSerif.variable}`}>
-      <body className="flex min-h-screen flex-col bg-white font-sans text-ink-800 antialiased">
+      <body className="flex min-h-screen flex-col bg-white font-sans text-ink-800 antialiased pb-[68px] lg:pb-0">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
@@ -81,6 +82,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <FloatingCTA />
       </body>
     </html>
   )

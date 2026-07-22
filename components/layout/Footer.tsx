@@ -52,8 +52,13 @@ export default function Footer() {
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-leaf-500 text-white">
                 <Icon name="leaf" size={20} />
               </span>
-              <span className="font-serif text-lg font-semibold text-forest-800">
-                株式会社はるじゅ
+              <span className="flex flex-col leading-tight">
+                <span className="font-serif text-lg font-semibold text-forest-800">
+                  株式会社はるじゅ
+                </span>
+                <span className="mt-0.5 text-[12px] text-ink-500">
+                  {COMPANY.officeName}
+                </span>
               </span>
             </div>
             <p className="mt-4 max-w-sm text-[13.5px] leading-relaxed text-ink-600">

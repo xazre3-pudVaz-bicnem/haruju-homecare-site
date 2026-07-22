@@ -14,7 +14,8 @@ import {
   InfoNote,
   RelatedLinks,
 } from '@/components/ui/primitives'
-import { SERVICES } from '@/lib/constants'
+import AreaHighlight from '@/components/sections/AreaHighlight'
+import { SERVICES, CM_SPEC } from '@/lib/constants'
 import { PHOTO } from '@/lib/images'
 import { pageMeta, faqSchema } from '@/lib/seo'
 
@@ -129,6 +130,46 @@ export default function CareManagerPage() {
             </div>
           </Reveal>
         </div>
+      </Section>
+
+      {/* 事業所スペック（営業でも活用できる概要） */}
+      <Section tone="leaf">
+        <Reveal>
+          <SectionTitle
+            eyebrow="At a Glance"
+            title="事業所の概要"
+            lead="ご依頼を検討される際にご確認いただきたい、事業所の基本情報です。空き状況や対応可能曜日は変動しますので、最新の状況はお問い合わせください。"
+          />
+        </Reveal>
+        <Reveal>
+          <dl className="mt-10 overflow-hidden rounded-3xl border border-paper-200 bg-white">
+            {CM_SPEC.map((row, i) => (
+              <div
+                key={row.label}
+                className={`flex flex-col gap-1 px-6 py-5 sm:flex-row sm:gap-6 ${
+                  i !== CM_SPEC.length - 1 ? 'border-b border-paper-200' : ''
+                }`}
+              >
+                <dt className="w-full shrink-0 text-sm font-semibold text-forest-700 sm:w-40">
+                  {row.label}
+                </dt>
+                <dd className="flex-1 text-[15px] leading-relaxed text-ink-700">
+                  {row.value}
+                  {row.isDummy && (
+                    <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 align-middle text-[11px] font-medium text-forest-600">
+                      ※要確認
+                    </span>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+        <Reveal>
+          <div className="mt-6">
+            <AreaHighlight />
+          </div>
+        </Reveal>
       </Section>
 
       {/* ご相談・依頼の流れ */}

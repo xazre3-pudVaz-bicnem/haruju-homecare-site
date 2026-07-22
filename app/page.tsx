@@ -1,28 +1,31 @@
 import Link from 'next/link'
 import Hero from '@/components/sections/Hero'
+import ReasonsGrid from '@/components/sections/ReasonsGrid'
+import SimpleFlow from '@/components/sections/SimpleFlow'
+import AreaHighlight from '@/components/sections/AreaHighlight'
 import Reveal from '@/components/ui/Reveal'
 import SectionTitle from '@/components/ui/SectionTitle'
 import ServiceCard from '@/components/ui/ServiceCard'
-import FlowStep from '@/components/ui/FlowStep'
 import RecruitCard from '@/components/ui/RecruitCard'
 import PlaceholderImage from '@/components/ui/PlaceholderImage'
 import ContactBlock from '@/components/ui/ContactBlock'
 import CompanyInfo from '@/components/ui/CompanyInfo'
+import BusinessHours from '@/components/ui/BusinessHours'
 import Icon from '@/components/ui/Icon'
 import Illustration from '@/components/ui/Illustration'
 import { Section, CheckList, ButtonLink, InfoNote } from '@/components/ui/primitives'
 import { PHOTO } from '@/lib/images'
 import {
   SERVICES,
-  FLOW_STEPS,
   BODY_CARE,
   LIFE_SUPPORT,
   JOBS,
   RECRUIT_POINTS,
+  COMPANY,
+  FAQS,
 } from '@/lib/constants'
 import { NEWS, formatDate } from '@/lib/news'
 import { faqSchema } from '@/lib/seo'
-import { FAQS } from '@/lib/constants'
 
 export default function HomePage() {
   return (
@@ -33,6 +36,25 @@ export default function HomePage() {
       />
 
       <Hero />
+
+      {/* ブランドステートメント（キャッチコピー） */}
+      <section className="border-b border-paper-200 bg-leaf-50">
+        <div className="mx-auto max-w-4xl px-5 py-14 text-center sm:py-16">
+          <Reveal>
+            <p className="font-serif text-[1.4rem] leading-[1.7] text-forest-800 sm:text-[1.9rem] sm:leading-[1.7]">
+              介護が必要になっても、
+              <br className="sm:hidden" />
+              <span className="whitespace-nowrap">「わたしの暮らし」</span>
+              は続いていく。
+            </p>
+            <p className="mx-auto mt-6 max-w-2xl text-[14px] leading-relaxed text-ink-700 sm:text-[15px]">
+              住み慣れた横浜の街で、その人らしい毎日を続けられるように。
+              訪問介護ステーションNAE（株式会社はるじゅ）は、ご本人とご家族に寄り添い、
+              在宅での暮らしを地域で支えます。
+            </p>
+          </Reveal>
+        </div>
+      </section>
 
       {/* 2. はるじゅの想い */}
       <Section tone="white">
@@ -82,6 +104,23 @@ export default function HomePage() {
             </div>
           </Reveal>
         </div>
+      </Section>
+
+      {/* 選ばれる理由 */}
+      <Section tone="paper">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Reasons"
+            title="はるじゅが選ばれる理由"
+            lead="サービスの内容だけでなく、「なぜ、はるじゅなのか」。私たちが利用者様やケアマネジャーの皆さまに選んでいただける理由をご紹介します。"
+            align="center"
+          />
+        </Reveal>
+        <Reveal>
+          <div className="mt-12">
+            <ReasonsGrid />
+          </div>
+        </Reveal>
       </Section>
 
       {/* 3. サービス紹介 */}
@@ -155,55 +194,32 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 5. ご利用の流れ */}
+      {/* 5. ご利用開始までの流れ（かんたん4ステップ） */}
       <Section tone="leaf">
         <Reveal>
           <SectionTitle
             eyebrow="Flow"
-            title="ご利用の流れ"
-            lead="介護保険を使った訪問介護は、担当のケアマネジャーを通してご利用いただくのが基本です。初めての方にも分かりやすいよう、順を追ってご案内します。"
+            title="ご利用開始までの流れ"
+            lead="お問い合わせから、ご自宅での訪問相談、ご契約、サービス開始まで。はじめての方にも分かりやすい、かんたん4ステップです。"
+            align="center"
           />
         </Reveal>
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          <Reveal>
-            <ol className="rounded-3xl bg-white p-7 sm:p-9">
-              {FLOW_STEPS.slice(0, 7).map((step, i) => (
-                <FlowStep
-                  key={step.title}
-                  index={i + 1}
-                  title={step.title}
-                  body={step.body}
-                  last={i === 6}
-                />
-              ))}
-            </ol>
-          </Reveal>
-          <Reveal delay={80}>
-            <div className="space-y-4">
-              <div className="rounded-3xl border border-leaf-200 bg-white p-6">
-                <h3 className="flex items-center gap-2 font-serif text-lg text-forest-800">
-                  <Icon name="chat" size={20} className="text-leaf-600" />
-                  すでにケアマネジャーがいる方
-                </h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-700">
-                  まずは担当のケアマネジャーへ、訪問介護を利用したい旨をご相談ください。
-                  ケアプランにそって、はるじゅがご自宅にうかがいます。
-                </p>
-              </div>
-              <div className="rounded-3xl border border-leaf-200 bg-white p-6">
-                <h3 className="flex items-center gap-2 font-serif text-lg text-forest-800">
-                  <Icon name="users" size={20} className="text-leaf-600" />
-                  ケアマネジャーの方へ
-                </h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-700">
-                  ケアマネジャーの方からのご相談・お問い合わせも承っています。
-                  担当者会議やサービス調整など、連携してご対応します。
-                </p>
-              </div>
-              <ButtonLink href="/flow">ご利用の流れを詳しく</ButtonLink>
-            </div>
-          </Reveal>
-        </div>
+        <Reveal>
+          <div className="mt-14 md:mt-12">
+            <SimpleFlow />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-4 rounded-3xl border border-leaf-200 bg-white p-6 text-center sm:flex-row sm:justify-between sm:text-left">
+            <p className="text-[14px] leading-relaxed text-ink-700">
+              介護保険をご利用の場合は、担当のケアマネジャーを通した流れになります。
+              ケアマネジャーの方からのご相談も承っています。
+            </p>
+            <ButtonLink href="/flow" variant="outline" className="shrink-0">
+              くわしいご利用の流れ
+            </ButtonLink>
+          </div>
+        </Reveal>
       </Section>
 
       {/* 6. 自費介護 */}
@@ -367,6 +383,28 @@ export default function HomePage() {
             </p>
           </Reveal>
         </div>
+      </Section>
+
+      {/* 対応エリア・営業案内 */}
+      <Section tone="paper">
+        <Reveal>
+          <SectionTitle
+            eyebrow="Area & Hours"
+            title="対応エリアと営業案内"
+            lead="横浜市内を中心にご自宅までうかがいます。営業時間・受付時間・緊急時の対応もご確認ください。"
+            align="center"
+          />
+        </Reveal>
+        <Reveal>
+          <div className="mt-12">
+            <AreaHighlight />
+          </div>
+        </Reveal>
+        <Reveal>
+          <div className="mt-6">
+            <BusinessHours />
+          </div>
+        </Reveal>
       </Section>
 
       {/* 9. 会社概要（簡易） */}
