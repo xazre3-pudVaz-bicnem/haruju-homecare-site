@@ -72,6 +72,7 @@ export const NAV_ITEMS = [
   },
   { label: 'ご利用の流れ', href: '/flow' },
   { label: 'ケアマネの方へ', href: '/care-manager' },
+  { label: '専門コラム', href: '/column' },
   {
     label: '求人情報',
     href: '/recruit',
@@ -81,8 +82,15 @@ export const NAV_ITEMS = [
       { label: '採用FAQ', href: '/recruit/faq' },
     ],
   },
-  { label: '会社概要', href: '/company' },
-  { label: 'お問い合わせ', href: '/contact' },
+  {
+    label: '会社案内',
+    href: '/company',
+    children: [
+      { label: '会社概要', href: '/company' },
+      { label: 'お知らせ', href: '/news' },
+      { label: 'よくあるご質問', href: '/faq' },
+    ],
+  },
 ] as const
 
 /** トップ・一覧で共有するサービスカード（カードはイラストで見せる） */

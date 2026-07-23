@@ -1,19 +1,21 @@
-export type NewsCategory = 'お知らせ' | '採用' | 'サービス'
+/**
+ * お知らせ（/news）のフォールバックデータ。
+ *
+ * お知らせの本番管理はWordPress（lib/wordpress.ts）で行う。
+ * ここは「WordPress未接続 or 一時的な接続エラー」のときに表示する予備データで、
+ * サイトのお知らせ欄が空にならないようにするためのもの。
+ * WordPress接続後は基本的に使われないため、不要になれば配列を空にしてよい。
+ */
 
-export type NewsItem = {
+export type FallbackNews = {
   slug: string
   date: string // YYYY-MM-DD
-  category: NewsCategory
+  category: string
   title: string
-  /** 本文。段落ごとに配列で保持する。 */
   body: string[]
 }
 
-/**
- * お知らせのダミーデータ。
- * 実運用時はこの配列を編集するか、CMS/API に差し替える。
- */
-export const NEWS: NewsItem[] = [
+export const FALLBACK_NEWS: FallbackNews[] = [
   {
     slug: 'website-open',
     date: '2026-07-01',
@@ -21,7 +23,7 @@ export const NEWS: NewsItem[] = [
     title: 'ホームページを公開しました',
     body: [
       '株式会社はるじゅの公式ホームページを公開しました。',
-      '当社は横浜市内を中心に、訪問介護・自費介護・重度訪問介護を行う地域密着の介護事業所です。ご本人とご家族が、住み慣れたご自宅で安心して暮らし続けられるよう、一人ひとりの生活に合わせた支援を行っています。',
+      '当社は横浜市磯子区を拠点に、訪問介護・自費介護・重度訪問介護を行う地域密着の介護事業所「訪問介護ステーションNAE」を運営しています。ご本人とご家族が、住み慣れたご自宅で安心して暮らし続けられるよう、一人ひとりの生活に合わせた支援を行っています。',
       'サービス内容やご利用の流れ、採用情報などを掲載しています。ご不明な点がありましたら、お問い合わせページよりお気軽にご連絡ください。',
     ],
   },
@@ -48,13 +50,3 @@ export const NEWS: NewsItem[] = [
     ],
   },
 ]
-
-export function getNews(slug: string): NewsItem | undefined {
-  return NEWS.find((n) => n.slug === slug)
-}
-
-/** 日付を日本語表記に整形（YYYY-MM-DD → YYYY年M月D日） */
-export function formatDate(date: string): string {
-  const [y, m, d] = date.split('-')
-  return `${y}年${Number(m)}月${Number(d)}日`
-}

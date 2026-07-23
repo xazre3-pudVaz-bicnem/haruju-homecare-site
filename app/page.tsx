@@ -24,10 +24,16 @@ import {
   COMPANY,
   FAQS,
 } from '@/lib/constants'
-import { NEWS, formatDate } from '@/lib/news'
+import NewsRow from '@/components/article/NewsRow'
+import ArticleCard from '@/components/article/ArticleCard'
+import { getLatestNews, formatNewsDate } from '@/lib/wordpress'
+import { getColumnSummaries, formatColumnDate } from '@/lib/column'
 import { faqSchema } from '@/lib/seo'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const latestNews = await getLatestNews(3)
+  const latestColumns = getColumnSummaries().slice(0, 3)
+
   return (
     <>
       <script
@@ -428,11 +434,15 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 10. お知らせ */}
+      {/* 10-1. お知らせ（WordPressで管理／会社からのお知らせ） */}
       <Section tone="paper">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <SectionTitle eyebrow="News" title="お知らせ" />
+            <SectionTitle
+              eyebrow="News"
+              title="お知らせ"
+              lead="営業時間や休業のご案内、サービス・採用に関する更新情報をお届けします。"
+            />
             <Link
               href="/news"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
@@ -442,28 +452,65 @@ export default function HomePage() {
             </Link>
           </div>
         </Reveal>
-        <div className="mt-8 divide-y divide-paper-200 overflow-hidden rounded-3xl border border-paper-200 bg-white">
-          {NEWS.map((n) => (
+        {latestNews.length > 0 ? (
+          <Reveal>
+            <ul className="mt-8 divide-y divide-paper-200 overflow-hidden rounded-3xl border border-paper-200 bg-white">
+              {latestNews.map((n) => (
+                <NewsRow
+                  key={n.slug}
+                  href={`/news/${n.slug}`}
+                  title={n.title}
+                  date={formatNewsDate(n.date)}
+                  category={n.category}
+                />
+              ))}
+            </ul>
+          </Reveal>
+        ) : (
+          <p className="mt-8 rounded-3xl border border-paper-200 bg-white px-6 py-12 text-center text-[15px] text-ink-600">
+            現在お知らせはありません。
+          </p>
+        )}
+      </Section>
+
+      {/* 10-2. 専門コラム（Markdownで管理／SEO用の読み物） */}
+      <Section tone="white">
+        <Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionTitle
+              eyebrow="Column"
+              title="専門コラム"
+              lead="訪問介護や介護保険のしくみ、ご家族の関わり方など、在宅介護に役立つ情報をわかりやすく解説します。"
+            />
             <Link
-              key={n.slug}
-              href={`/news/${n.slug}`}
-              className="flex flex-col gap-2 px-6 py-5 transition-colors hover:bg-leaf-50 sm:flex-row sm:items-center sm:gap-6"
+              href="/column"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
             >
-              <div className="flex items-center gap-4">
-                <time className="text-[13px] text-ink-500" dateTime={n.date}>
-                  {formatDate(n.date)}
-                </time>
-                <span className="rounded-full bg-leaf-100 px-2.5 py-0.5 text-[11px] font-medium text-forest-600">
-                  {n.category}
-                </span>
-              </div>
-              <span className="flex-1 text-[14.5px] font-medium text-forest-800">
-                {n.title}
-              </span>
-              <Icon name="arrow" size={16} className="hidden shrink-0 text-leaf-600 sm:block" />
+              すべて見る
+              <Icon name="arrow" size={16} />
             </Link>
-          ))}
-        </div>
+          </div>
+        </Reveal>
+        {latestColumns.length > 0 ? (
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {latestColumns.map((post, i) => (
+              <Reveal key={post.slug} delay={i * 70}>
+                <ArticleCard
+                  href={`/column/${post.slug}`}
+                  title={post.title}
+                  description={post.description}
+                  date={formatColumnDate(post.date)}
+                  category={post.category}
+                  image={post.image}
+                />
+              </Reveal>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-10 rounded-3xl border border-paper-200 bg-paper-50 px-6 py-12 text-center text-[15px] text-ink-600">
+            コラムは順次公開予定です。
+          </p>
+        )}
       </Section>
 
       {/* 11. 問い合わせ導線 */}

@@ -35,6 +35,7 @@ const FOOTER_NAV: { heading: string; links: { label: string; href: string }[] }[
     links: [
       { label: '会社概要', href: '/company' },
       { label: 'お知らせ', href: '/news' },
+      { label: '専門コラム', href: '/column' },
       { label: '横浜で訪問介護をお探しの方へ', href: '/area/yokohama-home-care' },
       { label: 'お問い合わせ', href: '/contact' },
     ],

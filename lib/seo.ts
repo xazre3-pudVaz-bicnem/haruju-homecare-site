@@ -42,6 +42,114 @@ export function faqSchema(faqs: readonly { q: string; a: string }[]) {
   }
 }
 
+type ArticleSchemaArgs = {
+  title: string
+  description: string
+  /** 記事のパス（例: /column/xxx） */
+  path: string
+  /** 公開日（YYYY-MM-DD または ISO） */
+  datePublished: string
+  dateModified?: string
+  /** 画像パス（サイト内の絶対パス or 完全URL） */
+  image?: string
+  /** 'Article'（専門コラム） or 'NewsArticle'（お知らせ） */
+  type?: 'Article' | 'NewsArticle'
+}
+
+/**
+ * 記事の構造化データ。
+ * 専門コラム → Article、お知らせ → NewsArticle で使い分ける。
+ */
+export function articleSchema({
+  title,
+  description,
+  path,
+  datePublished,
+  dateModified,
+  image,
+  type = 'Article',
+}: ArticleSchemaArgs) {
+  const url = `${SITE_URL}${path}`
+  const img = image
+    ? image.startsWith('http')
+      ? image
+      : `${SITE_URL}${image}`
+    : `${SITE_URL}/og-image.jpg`
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': type,
+    headline: title,
+    description,
+    image: [img],
+    datePublished,
+    dateModified: dateModified || datePublished,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    url,
+    author: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/og-image.jpg` },
+    },
+  }
+}
+
+/** お知らせ用（NewsArticle）のショートハンド */
+export function newsArticleSchema(args: Omit<ArticleSchemaArgs, 'type'>) {
+  return articleSchema({ ...args, type: 'NewsArticle' })
+}
+
+/** 記事ページ用の metadata（OGP は article タイプで出力） */
+export function articleMeta({
+  title,
+  description,
+  path,
+  image,
+  publishedTime,
+  modifiedTime,
+  keywords,
+}: {
+  title: string
+  description: string
+  path: string
+  image?: string
+  publishedTime?: string
+  modifiedTime?: string
+  keywords?: string[]
+}): Metadata {
+  const url = `${SITE_URL}${path}`
+  const img = image
+    ? image.startsWith('http')
+      ? image
+      : `${SITE_URL}${image}`
+    : `${SITE_URL}/og-image.jpg`
+
+  return {
+    title,
+    description,
+    ...(keywords ? { keywords } : {}),
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${title}｜${SITE_NAME}`,
+      description,
+      url,
+      type: 'article',
+      locale: 'ja_JP',
+      siteName: SITE_NAME,
+      images: [{ url: img, width: 1200, height: 630 }],
+      ...(publishedTime ? { publishedTime } : {}),
+      ...(modifiedTime ? { modifiedTime } : {}),
+    },
+    twitter: { card: 'summary_large_image' },
+  }
+}
+
 type Crumb = { name: string; href: string }
 
 /** BreadcrumbList 構造化データ */

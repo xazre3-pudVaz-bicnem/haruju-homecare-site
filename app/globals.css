@@ -57,6 +57,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -107,6 +108,101 @@ body {
     transparent 1.4px
   );
   background-size: 22px 22px;
+}
+
+/* ---- 記事本文（お知らせ・専門コラム共通） ---- */
+.article-body {
+  color: var(--color-ink-800);
+  font-size: 16px;
+  line-height: 2;
+}
+.article-body > * + * {
+  margin-top: 1.4em;
+}
+.article-body h2 {
+  margin-top: 2.6em;
+  margin-bottom: 0.2em;
+  padding-left: 0.9rem;
+  border-left: 4px solid var(--color-leaf-500);
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: var(--color-forest-800);
+  scroll-margin-top: 6rem;
+}
+.article-body h3 {
+  margin-top: 2em;
+  margin-bottom: 0.1em;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  color: var(--color-forest-700);
+}
+.article-body p {
+  text-align: justify;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 1.4rem;
+}
+.article-body ul {
+  list-style: disc;
+}
+.article-body ol {
+  list-style: decimal;
+}
+.article-body li {
+  margin-top: 0.5em;
+  padding-left: 0.25rem;
+}
+.article-body li::marker {
+  color: var(--color-leaf-600);
+}
+.article-body a {
+  color: var(--color-leaf-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-body a:hover {
+  color: var(--color-forest-700);
+}
+.article-body strong {
+  font-weight: 700;
+  color: var(--color-forest-800);
+}
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+.article-body blockquote {
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--color-leaf-300);
+  background-color: var(--color-leaf-50);
+  border-radius: 0 1rem 1rem 0;
+  color: var(--color-ink-700);
+}
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+.article-body th,
+.article-body td {
+  border: 1px solid var(--color-paper-200);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+.article-body th {
+  background-color: var(--color-paper-50);
+  color: var(--color-forest-800);
+}
+
+/* 3行で省略（記事カードの要約） */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Reveal-on-scroll（JSなしでも表示される段階的強調） */
