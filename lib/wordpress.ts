@@ -5,13 +5,30 @@ import { FALLBACK_NEWS, type FallbackNews } from './news'
  *
  * - 記事の管理はすべて WordPress 側（管理者が手動投稿）
  * - 専門コラム（/column）とは完全に分離している
- * - 環境変数 `NEXT_PUBLIC_WP_API_BASE_URL` に
- *   例）https://wp.example.com/wp-json/wp/v2 を設定すると有効になる
+ * - 環境変数 `WP_API_BASE_URL`（推奨・サーバー専用）に WordPress のURLを設定する
+ *   例）https://wp.example.com/wp-json/wp/v2
+ *   互換のため `NEXT_PUBLIC_WP_API_BASE_URL` も受け付ける
+ * - サーバー側でのみ参照するため、値はビルド時に固定されず実行時に読まれる
+ *   （＝環境変数を追加して再デプロイすればISRで反映される）
  * - 未設定・接続エラー時は同梱のフォールバック記事を表示し、
  *   サイトが空にならない・ビルドが落ちないようにしている
  */
 
-const WP_API_BASE = process.env.NEXT_PUBLIC_WP_API_BASE_URL?.trim() || ''
+/**
+ * WordPressのベースURLを正規化する。
+ * 「https://wp.example.com」だけを入れても「/wp-json/wp/v2」を自動補完し、
+ * 末尾スラッシュも吸収するため、設定ミスに強い。
+ */
+function normalizeWpBase(raw?: string): string {
+  let b = (raw ?? '').trim().replace(/\/+$/, '')
+  if (!b) return ''
+  if (!/\/wp-json(\/|$)/.test(b)) b += '/wp-json/wp/v2'
+  return b
+}
+
+const WP_API_BASE = normalizeWpBase(
+  process.env.WP_API_BASE_URL || process.env.NEXT_PUBLIC_WP_API_BASE_URL,
+)
 
 /** WordPressが設定済みか */
 export const isWordPressEnabled = WP_API_BASE.length > 0
