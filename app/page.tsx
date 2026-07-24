@@ -30,8 +30,10 @@ import { getLatestNews, formatNewsDate } from '@/lib/wordpress'
 import { getColumnSummaries, formatColumnDate } from '@/lib/column'
 import { faqSchema } from '@/lib/seo'
 
-// トップの最新お知らせもWordPressから取得するため、関数を東京リージョンで実行する
-// （エックスサーバーの国外IPアクセス制限を回避）。
+// トップの最新お知らせをWordPressから実行時に取得する。
+// ビルドはVercelの米国リージョンで走りWPに弾かれるため、静的生成せず
+// 実行時（東京リージョン）に描画して最新のお知らせを反映する。
+export const dynamic = 'force-dynamic'
 export const preferredRegion = 'hnd1'
 
 export default async function HomePage() {
