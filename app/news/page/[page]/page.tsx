@@ -7,6 +7,9 @@ import { Section } from '@/components/ui/primitives'
 import { getNewsList } from '@/lib/wordpress'
 import { pageMeta } from '@/lib/seo'
 
+// WordPress(エックスサーバー)の国外IPアクセス制限を回避するため、関数を東京で実行する。
+export const preferredRegion = 'hnd1'
+
 type Params = { params: Promise<{ page: string }> }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

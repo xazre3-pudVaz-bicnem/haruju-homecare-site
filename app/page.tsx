@@ -30,6 +30,10 @@ import { getLatestNews, formatNewsDate } from '@/lib/wordpress'
 import { getColumnSummaries, formatColumnDate } from '@/lib/column'
 import { faqSchema } from '@/lib/seo'
 
+// トップの最新お知らせもWordPressから取得するため、関数を東京リージョンで実行する
+// （エックスサーバーの国外IPアクセス制限を回避）。
+export const preferredRegion = 'hnd1'
+
 export default async function HomePage() {
   const latestNews = await getLatestNews(3)
   const latestColumns = getColumnSummaries().slice(0, 3)

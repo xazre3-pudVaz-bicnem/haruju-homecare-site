@@ -8,6 +8,8 @@ import { pageMeta } from '@/lib/seo'
 // WordPressの環境変数を実行時に読むため、ビルド時に固定せず都度サーバーで描画する。
 // （Vercelの「センシティブ」環境変数はビルド時に渡されないため、この指定が重要）
 export const dynamic = 'force-dynamic'
+// WordPress(エックスサーバー)の国外IPアクセス制限を回避するため、関数を東京で実行する。
+export const preferredRegion = 'hnd1'
 
 export const metadata = pageMeta({
   title: 'お知らせ｜横浜の訪問介護 最新情報',

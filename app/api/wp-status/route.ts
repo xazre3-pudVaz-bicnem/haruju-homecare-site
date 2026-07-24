@@ -8,6 +8,8 @@ import { isWordPressEnabled, getNewsList } from '@/lib/wordpress'
  * 動作確認が済んだら、このファイルは削除して構わない。
  */
 export const dynamic = 'force-dynamic'
+// 本番と同じ経路で確認できるよう、関数を東京リージョンで実行する。
+export const preferredRegion = 'hnd1'
 
 export async function GET() {
   const result: {
