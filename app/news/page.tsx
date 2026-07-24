@@ -5,6 +5,10 @@ import { Section } from '@/components/ui/primitives'
 import { getNewsList } from '@/lib/wordpress'
 import { pageMeta } from '@/lib/seo'
 
+// WordPressの環境変数を実行時に読むため、ビルド時に固定せず都度サーバーで描画する。
+// （Vercelの「センシティブ」環境変数はビルド時に渡されないため、この指定が重要）
+export const dynamic = 'force-dynamic'
+
 export const metadata = pageMeta({
   title: 'お知らせ｜横浜の訪問介護 最新情報',
   description:

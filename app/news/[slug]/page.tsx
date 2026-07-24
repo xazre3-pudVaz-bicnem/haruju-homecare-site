@@ -7,16 +7,14 @@ import PlaceholderImage from '@/components/ui/PlaceholderImage'
 import Icon from '@/components/ui/Icon'
 import ArticleBody from '@/components/article/ArticleBody'
 import { Section } from '@/components/ui/primitives'
-import { getNewsBySlug, getAllNewsSlugs, formatNewsDate } from '@/lib/wordpress'
+import { getNewsBySlug, formatNewsDate } from '@/lib/wordpress'
 import { articleMeta, newsArticleSchema } from '@/lib/seo'
 
 type Params = { params: Promise<{ slug: string }> }
 
-/** WordPressの投稿スラッグを静的生成（新規投稿はISRで追従） */
-export async function generateStaticParams() {
-  const slugs = await getAllNewsSlugs()
-  return slugs.map((slug) => ({ slug }))
-}
+// WordPressの環境変数を実行時に読むため、ビルド時に静的生成せず都度サーバーで描画する。
+// （Vercelの「センシティブ」環境変数はビルド時に渡されないため、この指定が重要）
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params
