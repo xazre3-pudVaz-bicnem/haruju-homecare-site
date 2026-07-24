@@ -230,43 +230,6 @@ export async function getNewsCategories(): Promise<{ name: string; slug: string 
   }
 }
 
-/**
- * 診断用：WordPress REST API へキャッシュを使わず直接アクセスし、
- * 実際のHTTPステータスを返す。地理/WAFブロックの切り分けに使う。
- */
-export async function probeWordPress(): Promise<{
-  configured: boolean
-  baseHost: string
-  status: number
-  ok: boolean
-  error: string | null
-}> {
-  if (!WP_API_BASE) {
-    return { configured: false, baseHost: '', status: 0, ok: false, error: 'WP_API_BASE_URL 未設定' }
-  }
-  let baseHost = ''
-  try {
-    baseHost = new URL(WP_API_BASE).host
-  } catch {
-    baseHost = '(invalid url)'
-  }
-  try {
-    const res = await fetch(`${WP_API_BASE}/posts?per_page=1`, {
-      cache: 'no-store',
-      headers: { 'user-agent': 'Mozilla/5.0 (compatible; HarujuBot/1.0)' },
-    })
-    return { configured: true, baseHost, status: res.status, ok: res.ok, error: null }
-  } catch (e) {
-    return {
-      configured: true,
-      baseHost,
-      status: 0,
-      ok: false,
-      error: e instanceof Error ? e.message : String(e),
-    }
-  }
-}
-
 /** 日付を日本語表記に整形 */
 export function formatNewsDate(date: string): string {
   const d = new Date(date)
