@@ -87,6 +87,12 @@ export default function Footer() {
                 )}
               </p>
               <p className="flex items-center gap-2">
+                <Icon name="mail" size={16} className="shrink-0 text-leaf-600" />
+                <a href={`mailto:${COMPANY.email.value}`} className="hover:text-leaf-700">
+                  {COMPANY.email.value}
+                </a>
+              </p>
+              <p className="flex items-center gap-2">
                 <Icon name="clock" size={16} className="shrink-0 text-leaf-600" />
                 <span>
                   {COMPANY.hours.value}

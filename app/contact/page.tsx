@@ -96,11 +96,13 @@ export default function ContactPage() {
           <Reveal>
             <div className="rounded-3xl border border-paper-200 bg-white p-8 text-center sm:p-10">
               <span className="rule-accent justify-center text-sm font-semibold tracking-wider text-leaf-700">
-                Tel
+                Tel / Mail
               </span>
-              <h2 className="mt-4 font-serif text-xl text-forest-800">お電話でのご相談</h2>
+              <h2 className="mt-4 font-serif text-xl text-forest-800">
+                お電話・メールでのご相談
+              </h2>
               <p className="mt-3 text-[14px] leading-relaxed text-ink-700">
-                お急ぎの場合や、直接お話ししたい場合はお電話でも承っています。
+                お急ぎの場合や、直接お話ししたい場合はお電話でも承っています。メールでのお問い合わせも受け付けています。
               </p>
               <a
                 href={COMPANY.phoneTel}
@@ -113,6 +115,16 @@ export default function ContactPage() {
                 受付時間 {COMPANY.hours.value}（{COMPANY.holiday.value}）
               </p>
               <p className="mt-1 text-[13px] text-ink-500">{PHONE_NOTE}</p>
+              <div className="mx-auto mt-6 max-w-sm border-t border-paper-200 pt-6">
+                <a
+                  href={`mailto:${COMPANY.email.value}`}
+                  className="inline-flex items-center gap-2 font-serif text-lg font-semibold text-forest-800 transition-colors hover:text-leaf-700"
+                >
+                  <Icon name="mail" size={20} className="text-leaf-600" />
+                  {COMPANY.email.value}
+                </a>
+                <p className="mt-1 text-[12px] text-ink-500">メールでのお問い合わせはこちら</p>
+              </div>
               {COMPANY.hours.isDummy && (
                 <div className="mt-6 text-left">
                   <InfoNote>

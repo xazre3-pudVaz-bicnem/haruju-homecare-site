@@ -26,7 +26,7 @@ export const COMPANY = {
   phone: { value: '045-752-0345', isDummy: false },
   phoneTel: 'tel:0457520345',
   fax: { value: '000-0000-0000', isDummy: true },
-  email: { value: 'info@harju.co.jp', isDummy: true },
+  email: { value: 'nae.isogo@haruju.net', isDummy: false },
   hours: { value: '9:00〜18:00', isDummy: true },
   /** 電話・お問い合わせの受付時間 */
   phoneHours: { value: '平日 9:00〜18:00', isDummy: true },

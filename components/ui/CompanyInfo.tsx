@@ -1,6 +1,6 @@
 import { COMPANY } from '@/lib/constants'
 
-type Row = { label: string; value: string; isDummy?: boolean }
+type Row = { label: string; value: string; isDummy?: boolean; href?: string }
 
 /** 会社概要テーブル。仮情報には「※仮情報」ラベルを付ける。 */
 export default function CompanyInfo({ compact = false }: { compact?: boolean }) {
@@ -13,6 +13,12 @@ export default function CompanyInfo({ compact = false }: { compact?: boolean }) 
       isDummy: COMPANY.address.isDummy,
     },
     { label: '電話番号', value: COMPANY.phone.value, isDummy: COMPANY.phone.isDummy },
+    {
+      label: 'メールアドレス',
+      value: COMPANY.email.value,
+      isDummy: COMPANY.email.isDummy,
+      href: `mailto:${COMPANY.email.value}`,
+    },
     { label: '営業時間', value: COMPANY.hours.value, isDummy: COMPANY.hours.isDummy },
     { label: '定休日', value: COMPANY.holiday.value, isDummy: COMPANY.holiday.isDummy },
     { label: '事業内容', value: COMPANY.business },
@@ -39,7 +45,13 @@ export default function CompanyInfo({ compact = false }: { compact?: boolean }) 
             {row.label}
           </dt>
           <dd className="flex-1 text-[15px] text-ink-700">
-            {row.value}
+            {row.href ? (
+              <a href={row.href} className="text-leaf-700 underline underline-offset-2 hover:text-forest-700">
+                {row.value}
+              </a>
+            ) : (
+              row.value
+            )}
             {row.isDummy && (
               <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 text-[11px] font-medium text-forest-600 align-middle">
                 ※仮情報

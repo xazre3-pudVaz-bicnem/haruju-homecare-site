@@ -180,6 +180,7 @@ export const localBusinessSchema = {
   alternateName: ['はるじゅ', '訪問介護ステーションNAE', '株式会社はるじゅ'],
   url: SITE_URL,
   telephone: COMPANY.phone.value,
+  email: COMPANY.email.value,
   image: `${SITE_URL}/og-image.jpg`,
   description:
     '横浜市内を中心に訪問介護・自費介護・重度訪問介護を行う地域密着の介護事業所。ケアマネジャーを通したご利用相談、保険外の生活支援、採用情報も掲載。',
@@ -217,6 +218,7 @@ export const organizationSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/og-image.jpg`,
   telephone: COMPANY.phone.value,
+  email: COMPANY.email.value,
   address: {
     '@type': 'PostalAddress',
     postalCode: COMPANY.postalCode.value,
