@@ -13,6 +13,7 @@ export default function CompanyInfo({ compact = false }: { compact?: boolean }) 
       isDummy: COMPANY.address.isDummy,
     },
     { label: '電話番号', value: COMPANY.phone.value, isDummy: COMPANY.phone.isDummy },
+    { label: 'FAX番号', value: COMPANY.fax.value, isDummy: COMPANY.fax.isDummy },
     {
       label: 'メールアドレス',
       value: COMPANY.email.value,

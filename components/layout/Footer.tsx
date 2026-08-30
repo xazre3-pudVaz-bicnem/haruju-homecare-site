@@ -87,6 +87,10 @@ export default function Footer() {
                 )}
               </p>
               <p className="flex items-center gap-2">
+                <span className="w-4 shrink-0 text-center text-[10px] font-semibold leading-none text-leaf-600">FAX</span>
+                <span>{COMPANY.fax.value}</span>
+              </p>
+              <p className="flex items-center gap-2">
                 <Icon name="mail" size={16} className="shrink-0 text-leaf-600" />
                 <a href={`mailto:${COMPANY.email.value}`} className="hover:text-leaf-700">
                   {COMPANY.email.value}

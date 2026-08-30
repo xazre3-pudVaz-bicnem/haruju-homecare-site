@@ -180,6 +180,7 @@ export const localBusinessSchema = {
   alternateName: ['はるじゅ', '訪問介護ステーションNAE', '株式会社はるじゅ'],
   url: SITE_URL,
   telephone: COMPANY.phone.value,
+  faxNumber: COMPANY.fax.value,
   email: COMPANY.email.value,
   image: `${SITE_URL}/og-image.jpg`,
   description:
@@ -218,6 +219,7 @@ export const organizationSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/og-image.jpg`,
   telephone: COMPANY.phone.value,
+  faxNumber: COMPANY.fax.value,
   email: COMPANY.email.value,
   address: {
     '@type': 'PostalAddress',

@@ -115,6 +115,7 @@ export default function ContactPage() {
                 受付時間 {COMPANY.hours.value}（{COMPANY.holiday.value}）
               </p>
               <p className="mt-1 text-[13px] text-ink-500">{PHONE_NOTE}</p>
+              <p className="mt-2 text-[13px] text-ink-600">FAX {COMPANY.fax.value}</p>
               <div className="mx-auto mt-6 max-w-sm border-t border-paper-200 pt-6">
                 <a
                   href={`mailto:${COMPANY.email.value}`}

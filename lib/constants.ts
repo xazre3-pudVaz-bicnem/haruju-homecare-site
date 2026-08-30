@@ -23,9 +23,9 @@ export const COMPANY = {
   addressRegion: '神奈川県',
   addressLocality: '横浜市磯子区',
   streetAddress: '馬場町6-14',
-  phone: { value: '045-752-0345', isDummy: false },
-  phoneTel: 'tel:0457520345',
-  fax: { value: '000-0000-0000', isDummy: true },
+  phone: { value: '045-257-0747', isDummy: false },
+  phoneTel: 'tel:0452570747',
+  fax: { value: '045-257-0748', isDummy: false },
   email: { value: 'nae.isogo@haruju.net', isDummy: false },
   hours: { value: '9:00〜18:00', isDummy: true },
   /** 電話・お問い合わせの受付時間 */
