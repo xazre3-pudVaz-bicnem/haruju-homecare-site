@@ -42,6 +42,12 @@ const FOOTER_NAV: { heading: string; links: { label: string; href: string }[] }[
   },
 ]
 
+/** どのページからでも確認できる、法令・公表関連のリンク */
+const FOOTER_LEGAL_LINKS: { label: string; href: string }[] = [
+  { label: '福祉・介護職員等処遇改善加算', href: '/shogu-kaizen' },
+  { label: '個人情報保護方針', href: '/privacy' },
+]
+
 export default function Footer() {
   return (
     <footer className="border-t border-paper-200 bg-paper-50">
@@ -133,7 +139,22 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-paper-200 pt-6 sm:flex-row sm:items-center">
+        <nav
+          aria-label="公表事項"
+          className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-paper-200 pt-6"
+        >
+          {FOOTER_LEGAL_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-[13px] text-ink-600 transition-colors hover:text-leaf-700"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="mt-6 flex flex-col items-start justify-between gap-3 border-t border-paper-200 pt-6 sm:flex-row sm:items-center">
           <p className="text-[12px] text-ink-500">
             © {SITE_NAME}. All rights reserved.
           </p>

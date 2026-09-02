@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/area/yokohama-home-care', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/care-manager', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/family', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/shogu-kaizen', priority: 0.4, changeFrequency: 'yearly' },
     { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
   ]
 
