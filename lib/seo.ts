@@ -181,6 +181,7 @@ export const localBusinessSchema = {
   url: SITE_URL,
   telephone: COMPANY.phone.value,
   faxNumber: COMPANY.fax.value,
+  foundingDate: COMPANY.foundingDate,
   email: COMPANY.email.value,
   image: `${SITE_URL}/og-image.jpg`,
   description:
@@ -220,6 +221,7 @@ export const organizationSchema = {
   logo: `${SITE_URL}/og-image.jpg`,
   telephone: COMPANY.phone.value,
   faxNumber: COMPANY.fax.value,
+  foundingDate: COMPANY.foundingDate,
   email: COMPANY.email.value,
   address: {
     '@type': 'PostalAddress',

@@ -28,8 +28,8 @@ export default function CompanyInfo({ compact = false }: { compact?: boolean }) 
 
   if (!compact) {
     rows.push(
-      { label: '代表者', value: COMPANY.representative.value, isDummy: true },
-      { label: '設立', value: COMPANY.established.value, isDummy: true },
+      { label: '代表者', value: COMPANY.representative.value, isDummy: COMPANY.representative.isDummy },
+      { label: '会社設立', value: COMPANY.established.value, isDummy: COMPANY.established.isDummy },
     )
   }
 

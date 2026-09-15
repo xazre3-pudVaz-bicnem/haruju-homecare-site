@@ -15,6 +15,7 @@ import {
   getColumnPosts,
   getRelatedColumns,
   formatColumnDate,
+  categoryHref,
 } from '@/lib/column'
 import { articleMeta, articleSchema } from '@/lib/seo'
 
@@ -76,7 +77,7 @@ export default async function ColumnDetailPage({ params }: Params) {
           />
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
-              href={`/column/category/${encodeURIComponent(post.category)}`}
+              href={categoryHref(post.category)}
               className="rounded-full bg-leaf-500 px-3 py-1 text-[11px] font-semibold text-white transition-colors hover:bg-leaf-600"
             >
               {post.category}

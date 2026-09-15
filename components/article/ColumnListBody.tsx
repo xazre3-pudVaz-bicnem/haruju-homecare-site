@@ -2,15 +2,15 @@ import ArticleCard from './ArticleCard'
 import Pagination from './Pagination'
 import CategoryChips from './CategoryChips'
 import Reveal from '@/components/ui/Reveal'
-import { formatColumnDate, type ColumnSummary } from '@/lib/column'
+import { formatColumnDate, type ColumnSummary, type ColumnCategory } from '@/lib/column'
 
 type Props = {
   items: ColumnSummary[]
   currentPage: number
   totalPages: number
-  /** ページネーションのベースパス（例: '/column' or '/column/category/訪問介護'） */
+  /** ページネーションのベースパス（例: '/column' or '/column/category/home-care'） */
   basePath: string
-  categories: { name: string; count: number }[]
+  categories: ColumnCategory[]
   /** 選択中カテゴリ（カテゴリページのとき） */
   currentCategory?: string
   /** 記事が0件のときの文言 */
@@ -39,7 +39,7 @@ export default function ColumnListBody({
             current={currentCategory}
             items={categories.map((c) => ({
               name: c.name,
-              href: `/column/category/${encodeURIComponent(c.name)}`,
+              href: `/column/category/${c.slug}`,
               count: c.count,
             }))}
           />

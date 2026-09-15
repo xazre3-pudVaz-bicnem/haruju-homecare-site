@@ -158,9 +158,6 @@ export default function Footer() {
           <p className="text-[12px] text-ink-500">
             © {SITE_NAME}. All rights reserved.
           </p>
-          <p className="text-[11px] text-ink-400">
-            ※住所・電話番号・営業時間などは仮情報です。正式情報が決まり次第、更新します。
-          </p>
         </div>
       </div>
     </footer>

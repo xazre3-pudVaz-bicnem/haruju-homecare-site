@@ -64,7 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // コラムのカテゴリ一覧
   const columnCategoryEntries: MetadataRoute.Sitemap = getColumnCategories().map((c) => ({
-    url: `${SITE_URL}/column/category/${encodeURIComponent(c.name)}`,
+    url: `${SITE_URL}/column/category/${c.slug}`,
     lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.6,

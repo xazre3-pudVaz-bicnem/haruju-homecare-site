@@ -229,15 +229,50 @@ export function getColumnPost(slug: string): ColumnPost | undefined {
   return getColumnPosts().find((p) => p.slug === slug)
 }
 
+/**
+ * カテゴリ名 → URLスラッグ。
+ * 日本語のままURLにすると Vercel 上で事前生成ページとパスが一致せず 404 になるため、英数字で持つ。
+ * 新しいカテゴリを追加したらここにも追記する（未登録でも categorySlug のフォールバックで表示はされる）。
+ */
+const CATEGORY_SLUGS: Record<string, string> = {
+  訪問介護: 'home-care',
+  身体介護: 'physical-care',
+  生活援助: 'life-support',
+  自費介護: 'private-care',
+  重度訪問介護: 'severe-home-care',
+  介護保険: 'kaigo-insurance',
+  ケアマネジャー: 'care-manager',
+  在宅介護: 'zaitaku-kaigo',
+  認知症: 'dementia',
+  家族介護: 'family-care',
+  横浜の介護: 'yokohama',
+  介護職: 'care-work',
+}
+
+export type ColumnCategory = { name: string; slug: string; count: number }
+
+/** カテゴリ名からURLスラッグを得る（未登録のカテゴリは16進表記で英数字化） */
+export function categorySlug(name: string): string {
+  return CATEGORY_SLUGS[name] ?? `c-${Buffer.from(name, 'utf8').toString('hex')}`
+}
+
+export function categoryHref(name: string): string {
+  return `/column/category/${categorySlug(name)}`
+}
+
 /** カテゴリ一覧（記事数つき・多い順） */
-export function getColumnCategories(): { name: string; count: number }[] {
+export function getColumnCategories(): ColumnCategory[] {
   const map = new Map<string, number>()
   for (const p of getColumnSummaries()) {
     map.set(p.category, (map.get(p.category) ?? 0) + 1)
   }
   return [...map.entries()]
-    .map(([name, count]) => ({ name, count }))
+    .map(([name, count]) => ({ name, slug: categorySlug(name), count }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+}
+
+export function getColumnCategoryBySlug(slug: string): ColumnCategory | undefined {
+  return getColumnCategories().find((c) => c.slug === slug)
 }
 
 export function getColumnsByCategory(category: string): ColumnSummary[] {

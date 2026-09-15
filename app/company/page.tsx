@@ -50,7 +50,7 @@ export default function CompanyPage() {
             <SectionTitle
               eyebrow="Overview"
               title="事業所情報"
-              lead="正式な情報が確定次第、順次更新します。※仮情報の項目は現在準備中です。"
+              lead={`${COMPANY.name}が運営する「${COMPANY.officeName}」の基本情報です。`}
             />
           </Reveal>
           <Reveal delay={80}>
@@ -87,7 +87,6 @@ export default function CompanyPage() {
               <div className="mt-6">
                 <InfoNote>
                   対応可能なエリアや訪問の可否は、ご住所やご希望の時間帯・支援内容により異なります。
-                  地図の位置は正式な事業所住所の確定前のため、おおよその表示です（※仮情報）。
                 </InfoNote>
               </div>
             </div>
