@@ -149,9 +149,11 @@ export default function AboutPage() {
             <div className="mt-5 rounded-3xl border border-paper-200 bg-paper-50 p-6">
               <p className="font-serif text-lg text-forest-800">
                 {MANAGER.name.value}
-                <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 align-middle text-[11px] font-medium text-forest-600">
-                  ※仮情報
-                </span>
+                {MANAGER.name.isDummy && (
+                  <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 align-middle text-[11px] font-medium text-forest-600">
+                    ※仮情報
+                  </span>
+                )}
               </p>
               <p className="mt-1 text-[13px] text-ink-500">{MANAGER.role}</p>
               <dl className="mt-4 space-y-2.5 text-[13.5px]">

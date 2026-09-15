@@ -424,7 +424,7 @@ export const SERVICE_AREA_NOTE =
 
 /** 管理者プロフィール（/about・管理者紹介で使用。顔写真は後日差し替え） */
 export const MANAGER = {
-  name: { value: '〇〇 〇〇', isDummy: true },
+  name: { value: '小林 大輝', isDummy: false },
   role: '管理者 / サービス提供責任者',
   careerYears: '10年',
   qualification: '介護福祉士',

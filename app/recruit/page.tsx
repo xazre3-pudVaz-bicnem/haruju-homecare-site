@@ -429,9 +429,11 @@ export default function RecruitPage() {
               </p>
               <p className="mt-1 font-serif text-lg text-forest-800">
                 {MANAGER.name.value}
-                <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 align-middle text-[11px] font-medium text-forest-600">
-                  ※仮情報
-                </span>
+                {MANAGER.name.isDummy && (
+                  <span className="ml-2 rounded bg-leaf-100 px-1.5 py-0.5 align-middle text-[11px] font-medium text-forest-600">
+                    ※仮情報
+                  </span>
+                )}
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
