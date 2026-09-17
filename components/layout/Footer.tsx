@@ -59,12 +59,11 @@ export default function Footer() {
                 <Icon name="leaf" size={20} />
               </span>
               <span className="flex flex-col leading-tight">
-                <span className="font-serif text-lg font-semibold text-forest-800">
-                  株式会社はるじゅ
+                <span className="font-serif text-xl font-semibold text-forest-800">
+                  訪問介護ステーション
+                  <span className="ml-0.5 font-sans font-bold tracking-wide text-leaf-600">NAE</span>
                 </span>
-                <span className="mt-0.5 text-[12px] text-ink-500">
-                  {COMPANY.officeName}
-                </span>
+                <span className="mt-1 text-[12px] text-ink-500">運営：{SITE_NAME}</span>
               </span>
             </div>
             <p className="mt-4 max-w-sm text-[13.5px] leading-relaxed text-ink-600">

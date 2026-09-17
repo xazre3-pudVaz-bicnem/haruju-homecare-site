@@ -4,7 +4,7 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import FloatingCTA from '@/components/layout/FloatingCTA'
-import { SITE_URL, SITE_NAME } from '@/lib/constants'
+import { COMPANY, SITE_URL, SITE_NAME } from '@/lib/constants'
 import { localBusinessSchema, organizationSchema } from '@/lib/seo'
 
 const notoSans = Noto_Sans_JP({
@@ -24,8 +24,8 @@ const notoSerif = Noto_Serif_JP({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: '株式会社はるじゅ｜横浜の訪問介護・障害福祉サービス',
-    template: `%s｜${SITE_NAME}`,
+    default: `${COMPANY.officeName}（${SITE_NAME}）｜横浜の訪問介護・障害福祉サービス`,
+    template: `%s｜${COMPANY.officeName}`,
   },
   description:
     '株式会社はるじゅは、横浜市内を中心に訪問介護・障害福祉サービス（居宅介護・重度訪問介護・同行援護・行動援護）・移動支援・保険外サービスを行う地域密着の介護事業所です。ケアマネジャーを通したご利用相談、保険外の生活支援、採用情報も掲載しています。',

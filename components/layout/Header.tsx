@@ -3,21 +3,27 @@
 import { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { NAV_ITEMS, SITE_NAME } from '@/lib/constants'
+import { COMPANY, NAV_ITEMS, SITE_NAME } from '@/lib/constants'
 import Icon from '@/components/ui/Icon'
 
+/** ロゴ。事業所名「訪問介護ステーションNAE」を主役にし、運営会社を添える */
 function Logo() {
   return (
-    <Link href="/" className="group flex items-center gap-2.5" aria-label={`${SITE_NAME} トップ`}>
-      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-leaf-500 text-white transition-colors group-hover:bg-leaf-600">
+    <Link
+      href="/"
+      className="group flex min-w-0 items-center gap-2 sm:gap-2.5"
+      aria-label={`${COMPANY.officeName}（運営：${SITE_NAME}） トップ`}
+    >
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-leaf-500 text-white transition-colors group-hover:bg-leaf-600 sm:h-10 sm:w-10">
         <Icon name="leaf" size={20} />
       </span>
-      <span className="flex flex-col leading-none">
-        <span className="font-serif text-lg font-semibold text-forest-800">
-          株式会社はるじゅ
+      <span className="flex min-w-0 flex-col leading-none">
+        <span className="whitespace-nowrap font-serif text-[15px] font-semibold tracking-tight text-forest-800 min-[380px]:text-[17px] sm:text-xl">
+          訪問介護ステーション
+          <span className="ml-0.5 font-sans text-[1.15em] font-bold tracking-wide text-leaf-600">NAE</span>
         </span>
-        <span className="mt-0.5 text-[10px] tracking-[0.2em] text-ink-500">
-          YOKOHAMA HOME CARE
+        <span className="mt-1 whitespace-nowrap text-[10px] text-ink-500 sm:text-[11px]">
+          運営：{SITE_NAME}
         </span>
       </span>
     </Link>
@@ -64,10 +70,12 @@ export default function Header() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:h-[72px]">
           <Logo />
 
-          {/* PCナビ */}
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="メインナビゲーション">
-            {NAV_ITEMS.map((item) => {
+          {/* PCナビ（1280px 以上）。それ未満はロゴと7項目が1行に収まらないため、ハンバーガーメニューにする */}
+          <nav className="hidden items-center gap-1 xl:flex" aria-label="メインナビゲーション">
+            {NAV_ITEMS.map((item, idx) => {
               const href: string = item.href
+              // 右寄りの項目はドロップダウンを右端基準で開き、画面外にはみ出さないようにする
+              const alignRight = idx >= NAV_ITEMS.length - 2
               const active =
                 pathname === href || (href !== '/' && pathname.startsWith(href))
               const hasChildren = 'children' in item && item.children
@@ -76,7 +84,7 @@ export default function Header() {
                 <div key={item.href} className="group relative">
                   <Link
                     href={item.href}
-                    className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-[13.5px] font-medium transition-colors ${
+                    className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3.5 py-2 text-[13.5px] font-medium transition-colors ${
                       active
                         ? 'text-leaf-700'
                         : 'text-forest-700 hover:text-leaf-700'
@@ -90,7 +98,7 @@ export default function Header() {
                     )}
                   </Link>
                   {hasChildren && (
-                    <div className="invisible absolute left-0 top-full w-56 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    <div className={`invisible absolute ${alignRight ? 'right-0' : 'left-0'} top-full w-56 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100`}>
                       <div className="overflow-hidden rounded-2xl border border-paper-200 bg-white p-2 shadow-[0_20px_50px_-20px_rgba(31,61,43,0.3)]">
                         {item.children!.map((child) => (
                           <Fragment key={child.href}>
@@ -115,7 +123,7 @@ export default function Header() {
             })}
             <Link
               href="/contact"
-              className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-leaf-500 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-leaf-600"
+              className="ml-2 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-leaf-500 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-leaf-600"
             >
               お問い合わせ
             </Link>
@@ -125,7 +133,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="relative z-50 flex h-11 w-11 items-center justify-center rounded-xl text-forest-800 lg:hidden"
+            className="relative z-50 flex h-11 w-11 items-center justify-center rounded-xl text-forest-800 xl:hidden"
             aria-label={open ? 'メニューを閉じる' : 'メニューを開く'}
             aria-expanded={open}
           >
@@ -144,7 +152,7 @@ export default function Header() {
         z-[45]：下部の固定CTA（z-40）より上、閉じるボタンのある header（z-50）より下。
       */}
       <div
-        className={`fixed inset-0 z-[45] lg:hidden ${open ? '' : 'pointer-events-none'}`}
+        className={`fixed inset-0 z-[45] xl:hidden ${open ? '' : 'pointer-events-none'}`}
         aria-hidden={!open}
         inert={!open}
       >
