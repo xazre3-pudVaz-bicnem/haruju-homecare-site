@@ -3,8 +3,9 @@ import type { IconName } from '@/components/ui/Icon'
 
 export const SITE_NAME = '株式会社はるじゅ'
 export const SITE_NAME_SHORT = 'はるじゅ'
+/** 実際の値は next.config.ts で決定（独自ドメイン接続時は自動で切り替わる） */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://harju.co.jp'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://haruju-homecare-site.vercel.app'
 
 /**
  * 会社情報の一元管理。
@@ -428,7 +429,7 @@ export const MANAGER = {
   role: '管理者 / サービス提供責任者',
   careerYears: '10年',
   qualification: '介護福祉士',
-  photo: 'photo-manager.webp', // 未配置。届き次第 public/images/ に配置
+  photo: '/images/photo-manager.webp',
   hobby:
     '休日は映画鑑賞を楽しんだり、音楽を聴いてリフレッシュしています。気になった介護制度や福祉サービスについて調べることも多く、仕事に役立つ知識を学ぶ時間も大切にしています。',
   message: [

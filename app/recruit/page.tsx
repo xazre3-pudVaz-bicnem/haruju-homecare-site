@@ -410,10 +410,12 @@ export default function RecruitPage() {
         <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal>
             <PlaceholderImage
-              alt="訪問介護ステーションNAE 管理者の写真"
-              label="管理者写真 ※準備中"
+              src={MANAGER.photo}
+              alt={`訪問介護ステーションNAE 管理者 ${MANAGER.name.value}の写真`}
               ratio="4 / 5"
               tone="leaf"
+              objectPosition="center 20%"
+              sizes="(max-width: 1024px) 100vw, 40vw"
             />
           </Reveal>
           <Reveal delay={80}>
@@ -520,7 +522,7 @@ export default function RecruitPage() {
               <ButtonLink href="/contact?type=recruit">応募・相談フォームへ</ButtonLink>
               <Link
                 href="/recruit/work-style"
-                className="text-sm font-semibold text-leaf-200 underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center text-sm font-semibold text-leaf-200 underline-offset-4 hover:underline"
               >
                 働く環境を見る
               </Link>

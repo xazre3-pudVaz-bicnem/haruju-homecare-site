@@ -451,7 +451,7 @@ export default async function HomePage() {
             />
             <Link
               href="/news"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
+              className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
             >
               すべて見る
               <Icon name="arrow" size={16} />
@@ -467,6 +467,7 @@ export default async function HomePage() {
                   href={`/news/${n.slug}`}
                   title={n.title}
                   date={formatNewsDate(n.date)}
+                  dateTime={n.date}
                   category={n.category}
                 />
               ))}
@@ -490,7 +491,7 @@ export default async function HomePage() {
             />
             <Link
               href="/column"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
+              className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
             >
               すべて見る
               <Icon name="arrow" size={16} />
@@ -506,6 +507,7 @@ export default async function HomePage() {
                   title={post.title}
                   description={post.description}
                   date={formatColumnDate(post.date)}
+                  dateTime={post.date}
                   category={post.category}
                   image={post.image}
                 />

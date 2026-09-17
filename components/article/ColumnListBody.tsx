@@ -59,6 +59,7 @@ export default function ColumnListBody({
                 title={post.title}
                 description={post.description}
                 date={formatColumnDate(post.date)}
+                dateTime={post.date}
                 category={post.category}
                 image={post.image}
                 imageAlt={`${post.title}のイメージ`}

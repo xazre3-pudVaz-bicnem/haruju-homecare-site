@@ -182,6 +182,10 @@ body {
   color: var(--color-ink-700);
 }
 .article-body table {
+  /* スマホで表がはみ出さないよう、表だけ横スクロールさせる */
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95em;

@@ -37,7 +37,8 @@ export default function Reveal({
           }
         })
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' },
+      // threshold は 0 にする。割合指定だと、スマホで画面の数倍の高さになる要素が永久に表示されない
+      { threshold: 0, rootMargin: '0px 0px -40px 0px' },
     )
     io.observe(el)
     return () => io.disconnect()

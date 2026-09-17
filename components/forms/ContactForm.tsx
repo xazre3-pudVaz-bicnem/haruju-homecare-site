@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { INQUIRY_TYPES } from '@/lib/constants'
+import { COMPANY, INQUIRY_TYPES } from '@/lib/constants'
 import Icon from '@/components/ui/Icon'
 
 const TYPE_MAP: Record<string, string> = {
@@ -13,27 +13,84 @@ const TYPE_MAP: Record<string, string> = {
   'care-manager': 'ケアマネジャーからのご相談',
 }
 
+type Status = 'idle' | 'sending' | 'sent' | 'fallback' | 'error'
+
 /**
- * お問い合わせフォーム（UIのみ）。
- * 送信処理は未実装。onSubmit の TODO 箇所に API / フォームサービスを接続すれば動く。
+ * お問い合わせフォーム。/api/contact へ送信する。
+ * 送信サービスが未設定（503）のときは、入力内容を載せたメール作成画面を開けるようにして取りこぼしを防ぐ。
  * ?type= クエリで種別を初期選択できる（例: /contact?type=recruit）。
  */
 export default function ContactForm() {
   const params = useSearchParams()
   const initialType = TYPE_MAP[params.get('type') ?? ''] ?? ''
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+  const [mailto, setMailto] = useState('')
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: ここで API / フォームサービス（例: /api/contact）へ送信する。
-    // 現状はUIの完成確認のみ。実送信は未実装。
-    setSent(true)
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+    const fd = new FormData(e.currentTarget)
+    const data = {
+      name: String(fd.get('name') ?? ''),
+      tel: String(fd.get('tel') ?? ''),
+      email: String(fd.get('email') ?? ''),
+      type: String(fd.get('type') ?? ''),
+      message: String(fd.get('message') ?? ''),
+      consent: fd.get('consent') === 'on',
+      website: String(fd.get('website') ?? ''),
+    }
+    setMailto(
+      `mailto:${COMPANY.email.value}?subject=${encodeURIComponent(`【HPお問い合わせ】${data.type}（${data.name} 様）`)}&body=${encodeURIComponent(
+        `お名前：${data.name}
+電話番号：${data.tel}
+メールアドレス：${data.email}
+お問い合わせ種別：${data.type}
+
+${data.message}`,
+      )}`,
+    )
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      setStatus(res.ok ? 'sent' : res.status === 503 ? 'fallback' : 'error')
+    } catch {
+      setStatus('error')
     }
   }
 
-  if (sent) {
+  if (status === 'fallback') {
+    return (
+      <div className="rounded-3xl border border-leaf-200 bg-leaf-50 p-8 text-center sm:p-12">
+        <h2 className="font-serif text-xl text-forest-800">メールで送信してください</h2>
+        <p className="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-ink-700">
+          ただいまフォームからの自動送信を準備しています。お手数ですが、下のボタンからメールアプリを開き、
+          入力内容をそのまま送信してください。お急ぎの場合はお電話でご相談ください。
+        </p>
+        <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <a
+            href={mailto}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-leaf-600 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-leaf-700"
+          >
+            <Icon name="mail" size={18} />
+            メールアプリで送信する
+          </a>
+          <a
+            href={COMPANY.phoneTel}
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-leaf-400 bg-white px-7 py-3.5 text-sm font-semibold text-forest-700"
+          >
+            <Icon name="phone" size={18} />
+            {COMPANY.phone.value}
+          </a>
+        </div>
+        <p className="mt-4 text-[12px] text-ink-500">送信先：{COMPANY.email.value}</p>
+      </div>
+    )
+  }
+
+  if (status === 'sent') {
     return (
       <div className="rounded-3xl border border-leaf-200 bg-leaf-50 p-8 text-center sm:p-12">
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-leaf-500 text-white">
@@ -46,15 +103,25 @@ export default function ContactForm() {
           お問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。
           お急ぎの場合はお電話でもご相談を承っています。
         </p>
-        <p className="mt-4 text-[12px] text-ink-500">
-          ※こちらはデモ表示です。送信処理は現在準備中のため、実際の送信は行われていません。
-        </p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {status === 'error' && (
+        <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-4 text-[14px] leading-relaxed text-red-800">
+          送信できませんでした。時間をおいて再度お試しいただくか、お電話（{COMPANY.phone.value}）
+          またはメール（<a href={mailto} className="underline">{COMPANY.email.value}</a>）でご連絡ください。
+        </p>
+      )}
+      {/* スパム対策のおとり項目（画面には表示しない） */}
+      <div className="hidden" aria-hidden="true">
+        <label>
+          ウェブサイト
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       <Field label="お名前" htmlFor="name" required>
         <input
           id="name"
@@ -74,8 +141,11 @@ export default function ContactForm() {
             name="tel"
             type="tel"
             required
+            inputMode="tel"
+            pattern="[0-9０-９+-‐－ー()（） ]{10,}"
+            title="電話番号を数字で入力してください（例：045-275-0747）"
             autoComplete="tel"
-            placeholder="例）045-000-0000"
+            placeholder="例）045-123-4567"
             className={inputCls}
           />
         </Field>
@@ -150,10 +220,11 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-leaf-500 px-8 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-leaf-600 sm:w-auto"
+        disabled={status === 'sending'}
+        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-leaf-500 px-8 py-4 text-[15px] font-semibold text-white transition-colors hover:bg-leaf-600 disabled:cursor-wait disabled:opacity-60 sm:w-auto"
       >
         <Icon name="mail" size={18} />
-        この内容で送信する
+        {status === 'sending' ? '送信しています…' : 'この内容で送信する'}
       </button>
     </form>
   )

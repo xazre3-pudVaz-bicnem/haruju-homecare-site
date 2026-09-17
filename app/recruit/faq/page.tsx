@@ -77,7 +77,7 @@ export default function RecruitFaqPage() {
               <ButtonLink href="/contact?type=recruit">応募・相談フォームへ</ButtonLink>
               <Link
                 href="/recruit"
-                className="text-sm font-semibold text-leaf-200 underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center text-sm font-semibold text-leaf-200 underline-offset-4 hover:underline"
               >
                 求人情報に戻る
               </Link>

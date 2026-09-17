@@ -34,6 +34,7 @@ export default function NewsListBody({ items, currentPage, totalPages, basePath 
               href={`/news/${item.slug}`}
               title={item.title}
               date={formatNewsDate(item.date)}
+              dateTime={item.date}
               category={item.category}
             />
           ))}

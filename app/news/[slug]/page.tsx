@@ -99,7 +99,7 @@ export default async function NewsDetailPage({ params }: Params) {
           <div className="mt-12 border-t border-paper-200 pt-8">
             <Link
               href="/news"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
             >
               <Icon name="arrow" size={16} className="rotate-180" />
               お知らせ一覧へ戻る

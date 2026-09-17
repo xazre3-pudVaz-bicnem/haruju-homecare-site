@@ -1,5 +1,11 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { ButtonLink } from '@/components/ui/primitives'
+
+export const metadata: Metadata = {
+  title: 'ページが見つかりません',
+  robots: { index: false },
+}
 
 export default function NotFound() {
   return (

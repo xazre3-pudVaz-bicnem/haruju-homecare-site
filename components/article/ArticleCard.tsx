@@ -7,6 +7,8 @@ type Props = {
   title: string
   description?: string
   date: string
+  /** <time> の機械可読な日付（YYYY-MM-DD / ISO） */
+  dateTime?: string
   category?: string
   image?: string | null
   /** 画像のalt。未指定ならタイトルから生成 */
@@ -23,6 +25,7 @@ export default function ArticleCard({
   title,
   description,
   date,
+  dateTime,
   category,
   image,
   imageAlt,
@@ -49,7 +52,7 @@ export default function ArticleCard({
           )}
         </div>
         <div className="flex flex-1 flex-col p-6">
-          <time dateTime={date} className="text-[12px] text-ink-500">
+          <time dateTime={dateTime} className="text-[12px] text-ink-500">
             {date}
           </time>
           <h3 className="mt-2 font-serif text-[17px] leading-snug text-forest-800 transition-colors group-hover:text-leaf-700">

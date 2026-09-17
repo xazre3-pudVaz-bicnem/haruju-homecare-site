@@ -137,7 +137,7 @@ export default async function ColumnDetailPage({ params }: Params) {
           <div className="mt-10">
             <Link
               href="/column"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-leaf-700 hover:text-leaf-800"
             >
               <Icon name="arrow" size={16} className="rotate-180" />
               専門コラム一覧へ戻る
@@ -159,6 +159,7 @@ export default async function ColumnDetailPage({ params }: Params) {
                 title={r.title}
                 description={r.description}
                 date={formatColumnDate(r.date)}
+                dateTime={r.date}
                 category={r.category}
                 image={r.image}
               />

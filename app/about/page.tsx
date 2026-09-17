@@ -141,10 +141,12 @@ export default function AboutPage() {
         <div className="mt-12 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal>
             <PlaceholderImage
-              alt="訪問介護ステーションNAE 管理者の写真"
-              label="管理者写真 ※準備中"
+              src={MANAGER.photo}
+              alt={`訪問介護ステーションNAE 管理者 ${MANAGER.name.value}の写真`}
               ratio="4 / 5"
               tone="leaf"
+              objectPosition="center 20%"
+              sizes="(max-width: 1024px) 100vw, 40vw"
             />
             <div className="mt-5 rounded-3xl border border-paper-200 bg-paper-50 p-6">
               <p className="font-serif text-lg text-forest-800">

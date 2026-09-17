@@ -42,8 +42,13 @@ export default function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    if (open) window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
     }
   }, [open])
 
@@ -84,7 +89,7 @@ export default function Header() {
                     )}
                   </Link>
                   {hasChildren && (
-                    <div className="invisible absolute left-0 top-full w-56 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                    <div className="invisible absolute left-0 top-full w-56 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                       <div className="overflow-hidden rounded-2xl border border-paper-200 bg-white p-2 shadow-[0_20px_50px_-20px_rgba(31,61,43,0.3)]">
                         {item.children!.map((child) => (
                           <Link
@@ -134,6 +139,7 @@ export default function Header() {
       <div
         className={`fixed inset-0 z-[45] lg:hidden ${open ? '' : 'pointer-events-none'}`}
         aria-hidden={!open}
+        inert={!open}
       >
         <div
           className={`absolute inset-0 bg-forest-900/30 transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`}

@@ -63,12 +63,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   )
 
   // コラムのカテゴリ一覧
-  const columnCategoryEntries: MetadataRoute.Sitemap = getColumnCategories().map((c) => ({
-    url: `${SITE_URL}/column/category/${c.slug}`,
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.6,
-  }))
+  const columnCategoryEntries: MetadataRoute.Sitemap = getColumnCategories().flatMap((c) => [
+    {
+      url: `${SITE_URL}/column/category/${c.slug}`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    },
+    // カテゴリ一覧の2ページ目以降
+    ...Array.from({ length: Math.max(0, Math.ceil(c.count / COLUMN_PER_PAGE) - 1) }, (_, i) => ({
+      url: `${SITE_URL}/column/category/${c.slug}/page/${i + 2}`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.4,
+    })),
+  ])
 
   /* ———— お知らせ（WordPress管理） ———— */
   let newsEntries: MetadataRoute.Sitemap = []

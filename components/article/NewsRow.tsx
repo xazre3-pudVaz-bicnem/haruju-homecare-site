@@ -5,6 +5,8 @@ type Props = {
   href: string
   title: string
   date: string
+  /** <time> の機械可読な日付（YYYY-MM-DD / ISO） */
+  dateTime?: string
   category?: string
 }
 
@@ -12,7 +14,7 @@ type Props = {
  * お知らせ1件分の行。
  * 「更新履歴」らしいシンプルな一列表示。専門コラムのカードとは見た目を明確に分ける。
  */
-export default function NewsRow({ href, title, date, category }: Props) {
+export default function NewsRow({ href, title, date, dateTime, category }: Props) {
   return (
     <li>
       <Link
@@ -20,7 +22,7 @@ export default function NewsRow({ href, title, date, category }: Props) {
         className="group flex flex-col gap-2 px-6 py-5 transition-colors hover:bg-leaf-50 sm:flex-row sm:items-center sm:gap-6"
       >
         <div className="flex items-center gap-4">
-          <time dateTime={date} className="text-[13px] tabular-nums text-ink-500">
+          <time dateTime={dateTime} className="text-[13px] tabular-nums text-ink-500">
             {date}
           </time>
           {category && (

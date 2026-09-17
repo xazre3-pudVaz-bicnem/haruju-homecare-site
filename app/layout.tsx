@@ -63,6 +63,10 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSans.variable} ${notoSerif.variable}`}>
       <body className="flex min-h-screen flex-col bg-white font-sans text-ink-800 antialiased pb-[68px] lg:pb-0">
+        {/* JavaScript が無効でも、スクロール演出の要素を最初から表示する */}
+        <noscript>
+          <style>{'.reveal{opacity:1!important;transform:none!important}'}</style>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
