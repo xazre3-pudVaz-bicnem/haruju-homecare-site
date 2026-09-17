@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { NAV_ITEMS, SITE_NAME } from '@/lib/constants'
@@ -71,6 +71,7 @@ export default function Header() {
               const active =
                 pathname === href || (href !== '/' && pathname.startsWith(href))
               const hasChildren = 'children' in item && item.children
+              const grouped = !!item.children?.some((c) => c.group)
               return (
                 <div key={item.href} className="group relative">
                   <Link
@@ -92,13 +93,19 @@ export default function Header() {
                     <div className="invisible absolute left-0 top-full w-56 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                       <div className="overflow-hidden rounded-2xl border border-paper-200 bg-white p-2 shadow-[0_20px_50px_-20px_rgba(31,61,43,0.3)]">
                         {item.children!.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className="block rounded-xl px-3.5 py-2.5 text-[13.5px] text-forest-700 transition-colors hover:bg-leaf-50 hover:text-leaf-700"
-                          >
-                            {child.label}
-                          </Link>
+                          <Fragment key={child.href}>
+                            {child.group && (
+                              <p className="mt-2 border-t border-paper-100 px-3.5 pb-1 pt-2.5 text-[11px] font-semibold tracking-wider text-leaf-700">
+                                {child.group}
+                              </p>
+                            )}
+                            <Link
+                              href={child.href}
+                              className={`block rounded-xl px-3.5 text-[13.5px] text-forest-700 transition-colors hover:bg-leaf-50 hover:text-leaf-700 ${grouped ? 'py-2' : 'py-2.5'}`}
+                            >
+                              {child.label}
+                            </Link>
+                          </Fragment>
                         ))}
                       </div>
                     </div>
@@ -164,6 +171,11 @@ export default function Header() {
                     <ul className="mb-2 ml-3 flex flex-col gap-0.5 border-l border-leaf-200 pl-4">
                       {item.children!.map((child) => (
                         <li key={child.href}>
+                          {child.group && (
+                            <p className="mt-2 text-[11px] font-semibold tracking-wider text-leaf-700">
+                              {child.group}
+                            </p>
+                          )}
                           <Link
                             href={child.href}
                             className="block py-2 text-[14px] text-ink-700"

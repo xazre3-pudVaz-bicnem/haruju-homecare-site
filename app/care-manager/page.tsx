@@ -1,7 +1,7 @@
 import PageHeader from '@/components/ui/PageHeader'
 import SectionTitle from '@/components/ui/SectionTitle'
 import Reveal from '@/components/ui/Reveal'
-import ServiceCard from '@/components/ui/ServiceCard'
+import ServiceCategories from '@/components/sections/ServiceCategories'
 import FlowStep from '@/components/ui/FlowStep'
 import PlaceholderImage from '@/components/ui/PlaceholderImage'
 import ContactBlock from '@/components/ui/ContactBlock'
@@ -16,7 +16,6 @@ import {
 } from '@/components/ui/primitives'
 import AreaHighlight from '@/components/sections/AreaHighlight'
 import {
-  SERVICES,
   CM_SPEC,
   CM_WORRIES,
   CM_REASONS,
@@ -30,7 +29,7 @@ import { pageMeta, faqSchema } from '@/lib/seo'
 export const metadata = pageMeta({
   title: 'ケアマネジャーの方へ｜横浜の訪問介護・自費介護のご依頼と連携',
   description:
-    '横浜で訪問介護をお探しのケアマネジャーの方へ。株式会社はるじゅは居宅介護支援との連携を大切にし、訪問介護・自費介護・重度訪問介護のご依頼を承ります。相談から情報共有、担当者会議、サービス開始、モニタリングまで丁寧に対応します。',
+    '横浜で訪問介護をお探しのケアマネジャーの方へ。株式会社はるじゅは居宅介護支援との連携を大切にし、訪問介護・障害福祉サービス・移動支援・保険外サービスのご依頼を承ります。相談から情報共有、担当者会議、サービス開始、モニタリングまで丁寧に対応します。',
   path: '/care-manager',
   keywords: [
     '横浜 訪問介護 ケアマネジャー',
@@ -334,22 +333,12 @@ export default function CareManagerPage() {
           <SectionTitle
             eyebrow="Services"
             title="対応できるサービス"
-            lead="訪問介護を中心に、保険外の自費介護、重度訪問介護までご相談いただけます。ケアプランに合わせて組み合わせをご提案します。"
+            lead="介護保険の訪問介護を中心に、障害福祉サービスや移動支援、保険外サービスまでご相談いただけます。ケアプランに合わせて組み合わせをご提案します。"
             align="center"
           />
         </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.slice(0, 3).map((s, i) => (
-            <Reveal key={s.slug} delay={i * 70}>
-              <ServiceCard
-                name={s.name}
-                href={s.href}
-                lead={s.lead}
-                illust={s.illust}
-                tags={s.tags}
-              />
-            </Reveal>
-          ))}
+        <div className="mt-12">
+          <ServiceCategories />
         </div>
       </Section>
 

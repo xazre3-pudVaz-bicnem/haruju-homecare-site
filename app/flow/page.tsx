@@ -181,7 +181,7 @@ export default function FlowPage() {
         <Reveal>
           <RelatedLinks
             links={[
-              { label: 'サービス内容', href: '/service', desc: '訪問介護・自費介護・重度訪問介護' },
+              { label: 'サービス内容', href: '/service', desc: '訪問介護・障害福祉サービス・移動支援・保険外サービス' },
               { label: '訪問介護', href: '/service/home-care', desc: '身体介護・生活援助の内容' },
               { label: 'よくあるご質問', href: '/faq', desc: 'ご利用前の疑問はこちら' },
               { label: 'ご家族・ケアマネジャーの方へ', href: '/care-manager', desc: '連携・ご相談について' },

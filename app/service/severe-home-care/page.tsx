@@ -222,9 +222,9 @@ export default function SevereHomeCarePage() {
         <Reveal>
           <RelatedLinks
             links={[
-              { label: '訪問介護', href: '/service/home-care', desc: '介護保険による在宅支援' },
-              { label: '自費介護', href: '/service/private-care', desc: '保険外の柔軟なサポート' },
-              { label: 'ご家族の方へ', href: '/family', desc: '介護に悩むご家族へ' },
+              { label: '居宅介護', href: '/service/disability-home-care', desc: 'ご自宅での身体介護・家事援助' },
+              { label: '行動援護', href: '/service/behavioral-support', desc: '行動上の困難がある方の支援' },
+              { label: '保険外サービス', href: '/service/private-care', desc: '制度の枠を超えた自費のサポート' },
               { label: 'ご利用の流れ', href: '/flow', desc: '相談から利用開始まで' },
               { label: 'サービス内容', href: '/service', desc: 'サービス全体のご案内' },
               { label: 'お問い合わせ', href: '/contact', desc: 'ご相談の受付' },

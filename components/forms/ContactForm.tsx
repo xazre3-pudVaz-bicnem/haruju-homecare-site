@@ -7,8 +7,10 @@ import Icon from '@/components/ui/Icon'
 
 const TYPE_MAP: Record<string, string> = {
   service: '訪問介護について',
-  'private-care': '自費介護について',
-  severe: '重度訪問介護について',
+  'private-care': '保険外サービス（自費介護）について',
+  severe: '障害福祉サービス（居宅介護・重度訪問介護・同行援護・行動援護）について',
+  welfare: '障害福祉サービス（居宅介護・重度訪問介護・同行援護・行動援護）について',
+  mobility: '移動支援について',
   recruit: '採用について',
   'care-manager': 'ケアマネジャーからのご相談',
 }

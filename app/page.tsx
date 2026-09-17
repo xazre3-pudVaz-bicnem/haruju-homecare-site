@@ -5,7 +5,7 @@ import SimpleFlow from '@/components/sections/SimpleFlow'
 import AreaHighlight from '@/components/sections/AreaHighlight'
 import Reveal from '@/components/ui/Reveal'
 import SectionTitle from '@/components/ui/SectionTitle'
-import ServiceCard from '@/components/ui/ServiceCard'
+import ServiceCategories from '@/components/sections/ServiceCategories'
 import RecruitCard from '@/components/ui/RecruitCard'
 import PlaceholderImage from '@/components/ui/PlaceholderImage'
 import ContactBlock from '@/components/ui/ContactBlock'
@@ -16,7 +16,6 @@ import Illustration from '@/components/ui/Illustration'
 import { Section, CheckList, ButtonLink, InfoNote } from '@/components/ui/primitives'
 import { PHOTO } from '@/lib/images'
 import {
-  SERVICES,
   BODY_CARE,
   LIFE_SUPPORT,
   JOBS,
@@ -29,6 +28,16 @@ import ArticleCard from '@/components/article/ArticleCard'
 import { getLatestNews, formatNewsDate } from '@/lib/wordpress'
 import { getColumnSummaries, formatColumnDate } from '@/lib/column'
 import { faqSchema } from '@/lib/seo'
+import { SERVICE_ITEMS } from '@/lib/services'
+
+/** トップの「障がいのある方」セクションで案内するサービス */
+const WELFARE_LINKS = [
+  { ...SERVICE_ITEMS.disabilityHomeCare, desc: 'ご自宅での身体介護・家事援助' },
+  { ...SERVICE_ITEMS.severeHomeCare, desc: '長時間の見守りと生活全般の支援' },
+  { ...SERVICE_ITEMS.accompanyingSupport, desc: '視覚障がいのある方の外出に同行' },
+  { ...SERVICE_ITEMS.behavioralSupport, desc: '行動上の困難がある方の外出支援' },
+  { ...SERVICE_ITEMS.mobilitySupport, desc: '余暇・社会参加の外出をサポート' },
+]
 
 // トップの最新お知らせをWordPressから実行時に取得する。
 // ビルドはVercelの米国リージョンで走りWPに弾かれるため、静的生成せず
@@ -141,23 +150,20 @@ export default async function HomePage() {
           <SectionTitle
             eyebrow="Services"
             title="はるじゅのサービス"
-            lead="介護保険による訪問介護を中心に、保険外の自費介護、重度訪問介護まで。ご本人の状態やご希望に合わせて、必要な支援を組み合わせてご提案します。"
+            lead="介護保険の訪問介護、障がいのある方への障害福祉サービス、横浜市の移動支援、保険外サービスまで。ご本人の状態やご希望に合わせて、必要な支援を組み合わせてご提案します。"
             align="center"
           />
         </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((s, i) => (
-            <Reveal key={s.slug} delay={i * 70}>
-              <ServiceCard
-                name={s.name}
-                href={s.href}
-                lead={s.lead}
-                illust={s.illust}
-                tags={s.tags}
-              />
-            </Reveal>
-          ))}
+        <div className="mt-12">
+          <ServiceCategories />
         </div>
+        <Reveal>
+          <div className="mt-8 text-center">
+            <ButtonLink href="/service" variant="outline">
+              サービス内容をくわしく見る
+            </ButtonLink>
+          </div>
+        </Reveal>
       </Section>
 
       {/* 4. 訪問介護でできること */}
@@ -234,14 +240,14 @@ export default async function HomePage() {
         </Reveal>
       </Section>
 
-      {/* 6. 自費介護 */}
+      {/* 6. 保険外サービス（自費介護） */}
       <Section tone="white">
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
           <Reveal delay={80} className="lg:order-2">
             <PlaceholderImage
               src={PHOTO.privateCare.src}
               alt={PHOTO.privateCare.alt}
-              label="自費介護写真"
+              label="保険外サービス写真"
               ratio="5 / 4"
               tone="leaf"
               objectPosition="center 35%"
@@ -250,8 +256,8 @@ export default async function HomePage() {
           </Reveal>
           <Reveal className="lg:order-1">
             <SectionTitle
-              eyebrow="Private Care"
-              title="保険では届きにくい部分を補う、自費介護"
+              eyebrow="Private Service"
+              title="制度では届きにくい部分を補う、保険外サービス"
               lead="介護保険サービスだけでは対応しきれないお困りごとに、柔軟に対応するのが自費介護です。時間や内容にとらわれず、ご本人・ご家族のご希望に合わせて組み立てられます。"
             />
             <div className="mt-6">
@@ -272,21 +278,21 @@ export default async function HomePage() {
             </p>
             <div className="mt-6">
               <ButtonLink href="/service/private-care" variant="outline">
-                自費介護の詳細
+                保険外サービス（自費介護）の詳細
               </ButtonLink>
             </div>
           </Reveal>
         </div>
       </Section>
 
-      {/* 7. 重度訪問介護 */}
+      {/* 7. 障害福祉サービス・移動支援 */}
       <Section tone="paper">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <Reveal>
             <PlaceholderImage
               src={PHOTO.severeCare.src}
               alt={PHOTO.severeCare.alt}
-              label="重度訪問介護写真"
+              label="障害福祉サービス写真"
               ratio="5 / 4"
               tone="forest"
               objectPosition="center 30%"
@@ -295,23 +301,30 @@ export default async function HomePage() {
           </Reveal>
           <Reveal delay={80}>
             <SectionTitle
-              eyebrow="Severe Home Care"
-              title="生活全般を支える、重度訪問介護"
-              lead="重度の障がいがある方が、住み慣れた地域で暮らし続けられるよう、長時間にわたって生活全般を支えるサービスです。ご本人の生活リズムを大切にしながら支援します。"
+              eyebrow="Disability Welfare"
+              title="障がいのある方の、暮らしと外出を支える"
+              lead="ご自宅での介助から、通院・買い物・余暇などの外出まで。障害福祉サービスと横浜市の移動支援で、住み慣れた地域での暮らしを支えます。"
             />
-            <div className="mt-6">
-              <CheckList
-                items={[
-                  '長時間の見守り',
-                  '移動支援',
-                  '身体介護',
-                  '家事援助',
-                  '生活全般の支援',
-                  '生活リズムに合わせた支援',
-                ]}
-                columns={2}
-              />
-            </div>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {WELFARE_LINKS.map((w) => (
+                <li key={w.href}>
+                  <Link
+                    href={w.href}
+                    className="group flex h-full items-start gap-3 rounded-2xl border border-paper-200 bg-white px-4 py-3.5 transition-colors hover:border-leaf-300 hover:bg-leaf-50"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-leaf-500 text-white">
+                      <Icon name="check" size={13} />
+                    </span>
+                    <span>
+                      <span className="block text-[14.5px] font-semibold text-forest-800 group-hover:text-leaf-700">
+                        {w.name}
+                      </span>
+                      <span className="block text-[12.5px] leading-relaxed text-ink-600">{w.desc}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <div className="mt-6">
               <InfoNote>
                 対象となる方や利用条件は、自治体や支給決定の内容により異なります。
@@ -319,8 +332,8 @@ export default async function HomePage() {
               </InfoNote>
             </div>
             <div className="mt-6">
-              <ButtonLink href="/service/severe-home-care" variant="outline">
-                重度訪問介護の詳細
+              <ButtonLink href="/service#svc-disability-welfare" variant="outline">
+                障害福祉サービスの一覧
               </ButtonLink>
             </div>
           </Reveal>

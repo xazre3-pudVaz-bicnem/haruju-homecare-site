@@ -13,7 +13,7 @@ import { pageMeta } from '@/lib/seo'
 export const metadata = pageMeta({
   title: '会社概要｜横浜の訪問介護 事業所情報・対応エリア',
   description:
-    '横浜市内を中心に訪問介護・自費介護・重度訪問介護を行う株式会社はるじゅの会社概要です。事業所の所在地、営業時間、事業内容、対応エリアをご案内します。地域に根ざした在宅介護の事業所として運営しています。',
+    '横浜市内を中心に訪問介護・障害福祉サービス・移動支援・保険外サービスを行う株式会社はるじゅの会社概要です。事業所の所在地、営業時間、事業内容、対応エリアをご案内します。地域に根ざした在宅介護の事業所として運営しています。',
   path: '/company',
   keywords: ['横浜 訪問介護', '横浜市 訪問介護', '訪問介護 事業所', '横浜 介護'],
 })
@@ -79,7 +79,7 @@ export default function CompanyPage() {
                 <div>
                   <h3 className="font-serif text-lg text-forest-800">{COMPANY.areaServed}</h3>
                   <p className="mt-2 text-[14px] leading-relaxed text-ink-700">
-                    横浜市内の在宅で暮らす方を対象に、訪問介護・自費介護・重度訪問介護をご提供しています。
+                    横浜市内の在宅で暮らす方を対象に、訪問介護・障害福祉サービス・移動支援・保険外サービスをご提供しています。
                     近隣の地域についても、まずはご相談ください。
                   </p>
                 </div>
@@ -111,7 +111,7 @@ export default function CompanyPage() {
           <RelatedLinks
             links={[
               { label: 'はるじゅについて', href: '/about', desc: '私たちの理念と約束' },
-              { label: 'サービス内容', href: '/service', desc: '訪問介護・自費介護・重度訪問介護' },
+              { label: 'サービス内容', href: '/service', desc: '訪問介護・障害福祉サービス・移動支援・保険外サービス' },
               { label: 'ご利用の流れ', href: '/flow', desc: 'ご相談から利用開始まで' },
               { label: 'よくあるご質問', href: '/faq', desc: 'ご利用前の疑問はこちら' },
               { label: '求人情報', href: '/recruit', desc: '横浜で介護の仕事を探す方へ' },

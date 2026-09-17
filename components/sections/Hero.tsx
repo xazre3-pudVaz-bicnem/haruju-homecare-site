@@ -43,7 +43,7 @@ export default function Hero() {
             ために。
           </h1>
           <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ink-800 [text-shadow:0_1px_1px_rgba(255,255,255,0.7)] sm:text-base">
-            株式会社はるじゅは、横浜エリアで訪問介護・自費介護・重度訪問介護を行う
+            株式会社はるじゅは、横浜エリアで訪問介護・障害福祉サービス・移動支援・保険外サービスを行う
             地域密着の介護事業所です。ご本人とご家族の暮らしに寄り添い、
             一人ひとりに合わせた在宅生活の支援を行っています。
           </p>

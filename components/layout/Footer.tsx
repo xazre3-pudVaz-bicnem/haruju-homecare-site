@@ -1,15 +1,14 @@
 import Link from 'next/link'
 import { COMPANY, SITE_NAME, PHONE_NOTE } from '@/lib/constants'
 import Icon from '@/components/ui/Icon'
+import { ALL_SERVICES } from '@/lib/services'
 
 const FOOTER_NAV: { heading: string; links: { label: string; href: string }[] }[] = [
   {
     heading: 'サービス',
     links: [
       { label: 'サービス内容', href: '/service' },
-      { label: '訪問介護', href: '/service/home-care' },
-      { label: '自費介護', href: '/service/private-care' },
-      { label: '重度訪問介護', href: '/service/severe-home-care' },
+      ...ALL_SERVICES.map((sv) => ({ label: sv.name, href: sv.href })),
       { label: 'ご利用の流れ', href: '/flow' },
     ],
   },
@@ -69,7 +68,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-sm text-[13.5px] leading-relaxed text-ink-600">
-              横浜市内を中心に、訪問介護・自費介護・重度訪問介護を行う地域密着の介護事業所です。
+              横浜市内を中心に、訪問介護・障害福祉サービス・移動支援・保険外サービスを行う地域密着の介護事業所です。
               住み慣れたご自宅での暮らしを、ご本人とご家族とともに支えます。
             </p>
             <div className="mt-6 space-y-1.5 text-[13.5px] text-ink-600">

@@ -1,4 +1,4 @@
-import type { IllustKey } from './images'
+import { SERVICE_CATEGORIES } from './services'
 import type { IconName } from '@/components/ui/Icon'
 
 export const SITE_NAME = '株式会社はるじゅ'
@@ -41,7 +41,8 @@ export const COMPANY = {
   /** 構造化データ用の設立日（ISO 8601） */
   foundingDate: '2026-07-30',
   capital: { value: '〇〇〇万円', isDummy: true },
-  business: '訪問介護・自費介護・重度訪問介護',
+  business:
+    '訪問介護（介護保険）／居宅介護・重度訪問介護・同行援護・行動援護（障害福祉サービス）／移動支援（地域生活支援事業）／保険外サービス（自費介護）',
   areaServed: '横浜市磯子区を中心に横浜市内で対応',
   /** 磯子区馬場町付近のおおよその座標 */
   lat: 35.4009,
@@ -60,17 +61,24 @@ export const PHONE_NOTE = 'ホームページを見たとお伝えいただく�
  */
 export const LINE_URL = ''
 
+export type NavChild = { label: string; href: string; /** この項目の前に出す区分見出し */ group?: string }
+export type NavItem = { label: string; href: string; children?: NavChild[] }
+
 /** グローバルナビゲーション */
-export const NAV_ITEMS = [
+export const NAV_ITEMS: NavItem[] = [
   { label: 'はるじゅについて', href: '/about' },
   {
     label: 'サービス',
     href: '/service',
     children: [
-      { label: 'サービス内容', href: '/service' },
-      { label: '訪問介護', href: '/service/home-care' },
-      { label: '自費介護', href: '/service/private-care' },
-      { label: '重度訪問介護', href: '/service/severe-home-care' },
+      { label: 'サービス内容（一覧）', href: '/service' },
+      ...SERVICE_CATEGORIES.flatMap((c) =>
+        c.services.map((sv, i) => ({
+          label: sv.name,
+          href: sv.href,
+          ...(i === 0 ? { group: c.name } : {}),
+        })),
+      ),
     ],
   },
   { label: 'ご利用の流れ', href: '/flow' },
@@ -94,50 +102,7 @@ export const NAV_ITEMS = [
       { label: 'よくあるご質問', href: '/faq' },
     ],
   },
-] as const
-
-/** トップ・一覧で共有するサービスカード（カードはイラストで見せる） */
-export const SERVICES: readonly {
-  slug: string
-  name: string
-  href: string
-  illust: IllustKey
-  lead: string
-  tags: readonly string[]
-}[] = [
-  {
-    slug: 'home-care',
-    name: '訪問介護',
-    href: '/service/home-care',
-    illust: 'meal',
-    lead: 'ホームヘルパーがご自宅にうかがい、食事・入浴・排せつなどの身体介護と、掃除・洗濯・調理などの生活援助をお手伝いします。',
-    tags: ['身体介護', '生活援助', '通院の付き添い'],
-  },
-  {
-    slug: 'private-care',
-    name: '自費介護',
-    href: '/service/private-care',
-    illust: 'outing',
-    lead: '介護保険では届きにくい部分を補う、保険外のサービスです。長時間の付き添いや柔軟な時間帯のサポートにも対応します。',
-    tags: ['長時間の付き添い', '外出の同行', '保険外の生活支援'],
-  },
-  {
-    slug: 'severe-home-care',
-    name: '重度訪問介護',
-    href: '/service/severe-home-care',
-    illust: 'severeCare',
-    lead: '重度の障がいがある方の生活全般を、長時間にわたって支えるサービスです。ご本人の生活リズムを大切にします。',
-    tags: ['長時間の見守り', '移動支援', '生活全般の支援'],
-  },
-  {
-    slug: 'partnership',
-    name: 'ご家族・ケアマネジャーとの連携',
-    href: '/care-manager',
-    illust: 'family',
-    lead: 'ケアマネジャー・医療機関・行政と連携し、ご本人とご家族を地域で支える体制づくりに取り組んでいます。',
-    tags: ['多職種連携', 'ご家族の相談', '担当者会議'],
-  },
-] as const
+]
 
 /** 訪問介護でできること（身体介護） */
 export const BODY_CARE = [
@@ -343,8 +308,9 @@ export const RECRUIT_FAQS = [
 /** お問い合わせ種別 */
 export const INQUIRY_TYPES = [
   '訪問介護について',
-  '自費介護について',
-  '重度訪問介護について',
+  '障害福祉サービス（居宅介護・重度訪問介護・同行援護・行動援護）について',
+  '移動支援について',
+  '保険外サービス（自費介護）について',
   '採用について',
   'ケアマネジャーからのご相談',
   'その他',

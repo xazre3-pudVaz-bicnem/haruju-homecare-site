@@ -10,7 +10,7 @@ import { PHOTO } from '@/lib/images'
 import { pageMeta } from '@/lib/seo'
 
 export const metadata = pageMeta({
-  title: '自費介護｜横浜で保険外の付き添い・生活支援に柔軟対応',
+  title: '保険外サービス（自費介護）｜横浜で付き添い・生活支援に柔軟対応',
   description:
     '横浜の自費介護は株式会社はるじゅへ。介護保険では対応しきれない長時間の付き添いや通院・外出の同行、保険外の生活支援に柔軟に対応します。時間や内容にとらわれず、ご本人とご家族のご希望にあわせて組み立てます。',
   path: '/service/private-care',
@@ -22,11 +22,11 @@ export default function PrivateCarePage() {
     <>
       <PageHeader
         eyebrow="Private Care"
-        title="自費介護"
+        title="保険外サービス（自費介護）"
         lead="介護保険では届きにくい部分を補う、保険外のサービスです。時間や内容の制約にとらわれず、ご本人とご家族のご希望にあわせて、必要なサポートを柔軟に組み立てます。"
         crumbs={[
           { name: 'サービス内容', href: '/service' },
-          { name: '自費介護', href: '/service/private-care' },
+          { name: '保険外サービス（自費介護）', href: '/service/private-care' },
         ]}
         image="photo-private-care.webp"
       />

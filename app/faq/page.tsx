@@ -69,7 +69,7 @@ export default function FaqPage() {
           <RelatedLinks
             links={[
               { label: 'ご利用の流れ', href: '/flow', desc: 'ご相談から利用開始まで' },
-              { label: 'サービス内容', href: '/service', desc: '訪問介護・自費介護・重度訪問介護' },
+              { label: 'サービス内容', href: '/service', desc: '訪問介護・障害福祉サービス・移動支援・保険外サービス' },
               { label: 'はるじゅについて', href: '/about', desc: '私たちの理念と約束' },
               { label: '会社概要', href: '/company', desc: '対応エリア・事業所情報' },
               { label: 'お問い合わせ', href: '/contact', desc: 'ご相談・ご質問はこちら' },

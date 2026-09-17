@@ -1,7 +1,7 @@
 import PageHeader from '@/components/ui/PageHeader'
 import SectionTitle from '@/components/ui/SectionTitle'
 import Reveal from '@/components/ui/Reveal'
-import ServiceCard from '@/components/ui/ServiceCard'
+import ServiceCategories from '@/components/sections/ServiceCategories'
 import PlaceholderImage from '@/components/ui/PlaceholderImage'
 import ContactBlock from '@/components/ui/ContactBlock'
 import Icon from '@/components/ui/Icon'
@@ -13,14 +13,13 @@ import {
   InfoNote,
   RelatedLinks,
 } from '@/components/ui/primitives'
-import { SERVICES } from '@/lib/constants'
 import { PHOTO } from '@/lib/images'
 import { pageMeta, faqSchema } from '@/lib/seo'
 
 export const metadata = pageMeta({
   title: '横浜の訪問介護をお探しの方へ｜身体介護・生活援助・自費介護に対応',
   description:
-    '横浜で訪問介護をお探しの方へ。株式会社はるじゅは横浜市内を中心に、ホームヘルパーによる身体介護・生活援助、自費介護、重度訪問介護に対応。退院後の在宅生活や一人暮らしの高齢者、ご家族の介護負担軽減を支えます。',
+    '横浜で訪問介護をお探しの方へ。株式会社はるじゅは横浜市内を中心に、ホームヘルパーによる身体介護・生活援助、障害福祉サービス、移動支援、自費介護に対応。退院後の在宅生活や一人暮らしの高齢者、ご家族の介護負担軽減を支えます。',
   path: '/area/yokohama-home-care',
   keywords: [
     '横浜 訪問介護',
@@ -121,22 +120,12 @@ export default function YokohamaHomeCarePage() {
           <SectionTitle
             eyebrow="Services"
             title="はるじゅが横浜で対応するサービス"
-            lead="介護保険による訪問介護を中心に、保険外の自費介護、重度訪問介護まで。ご本人の状態やご希望に合わせて、必要な支援を組み合わせてご提案します。"
+            lead="介護保険の訪問介護、障害福祉サービス（居宅介護・重度訪問介護・同行援護・行動援護）、横浜市の移動支援、保険外サービスまで。ご本人の状態やご希望に合わせて、必要な支援を組み合わせてご提案します。"
             align="center"
           />
         </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.slice(0, 3).map((s, i) => (
-            <Reveal key={s.slug} delay={i * 70}>
-              <ServiceCard
-                name={s.name}
-                href={s.href}
-                lead={s.lead}
-                illust={s.illust}
-                tags={s.tags}
-              />
-            </Reveal>
-          ))}
+        <div className="mt-12">
+          <ServiceCategories />
         </div>
       </Section>
 

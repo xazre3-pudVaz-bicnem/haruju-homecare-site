@@ -34,7 +34,7 @@ export default function ContactBlock() {
               サービスに関するご相談
             </h3>
             <p className="mt-3 flex-1 text-[14px] leading-relaxed text-paper-100/90">
-              訪問介護・自費介護・重度訪問介護のご利用について。
+              訪問介護・障害福祉サービス・移動支援・保険外サービスのご利用について。
               「何から始めればよいか」といった段階からのご相談も歓迎です。
             </p>
             <Link
