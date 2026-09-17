@@ -48,85 +48,91 @@ export default function Header() {
   }, [open])
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
-        scrolled
-          ? 'border-paper-200 bg-white/90 backdrop-blur-md'
-          : 'border-transparent bg-white/70 backdrop-blur-sm'
-      }`}
-    >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:h-[72px]">
-        <Logo />
+    <>
+      <header
+        className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
+          scrolled
+            ? 'border-paper-200 bg-white/90 backdrop-blur-md'
+            : 'border-transparent bg-white/70 backdrop-blur-sm'
+        }`}
+      >
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:h-[72px]">
+          <Logo />
 
-        {/* PCナビ */}
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="メインナビゲーション">
-          {NAV_ITEMS.map((item) => {
-            const href: string = item.href
-            const active =
-              pathname === href || (href !== '/' && pathname.startsWith(href))
-            const hasChildren = 'children' in item && item.children
-            return (
-              <div key={item.href} className="group relative">
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-[13.5px] font-medium transition-colors ${
-                    active
-                      ? 'text-leaf-700'
-                      : 'text-forest-700 hover:text-leaf-700'
-                  }`}
-                >
-                  {item.label}
+          {/* PCナビ */}
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="メインナビゲーション">
+            {NAV_ITEMS.map((item) => {
+              const href: string = item.href
+              const active =
+                pathname === href || (href !== '/' && pathname.startsWith(href))
+              const hasChildren = 'children' in item && item.children
+              return (
+                <div key={item.href} className="group relative">
+                  <Link
+                    href={item.href}
+                    className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-[13.5px] font-medium transition-colors ${
+                      active
+                        ? 'text-leaf-700'
+                        : 'text-forest-700 hover:text-leaf-700'
+                    }`}
+                  >
+                    {item.label}
+                    {hasChildren && (
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </Link>
                   {hasChildren && (
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                      <path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                </Link>
-                {hasChildren && (
-                  <div className="invisible absolute left-0 top-full w-56 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                    <div className="overflow-hidden rounded-2xl border border-paper-200 bg-white p-2 shadow-[0_20px_50px_-20px_rgba(31,61,43,0.3)]">
-                      {item.children!.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block rounded-xl px-3.5 py-2.5 text-[13.5px] text-forest-700 transition-colors hover:bg-leaf-50 hover:text-leaf-700"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                    <div className="invisible absolute left-0 top-full w-56 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="overflow-hidden rounded-2xl border border-paper-200 bg-white p-2 shadow-[0_20px_50px_-20px_rgba(31,61,43,0.3)]">
+                        {item.children!.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block rounded-xl px-3.5 py-2.5 text-[13.5px] text-forest-700 transition-colors hover:bg-leaf-50 hover:text-leaf-700"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            )
-          })}
-          <Link
-            href="/contact"
-            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-leaf-500 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-leaf-600"
+                  )}
+                </div>
+              )
+            })}
+            <Link
+              href="/contact"
+              className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-leaf-500 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-leaf-600"
+            >
+              お問い合わせ
+            </Link>
+          </nav>
+
+          {/* モバイルメニューボタン */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="relative z-50 flex h-11 w-11 items-center justify-center rounded-xl text-forest-800 lg:hidden"
+            aria-label={open ? 'メニューを閉じる' : 'メニューを開く'}
+            aria-expanded={open}
           >
-            お問い合わせ
-          </Link>
-        </nav>
+            <div className="flex w-6 flex-col items-end gap-[5px]">
+              <span className={`h-0.5 w-6 rounded-full bg-current transition-all duration-300 ${open ? 'translate-y-[7px] rotate-45' : ''}`} />
+              <span className={`h-0.5 w-5 rounded-full bg-current transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
+              <span className={`h-0.5 w-6 rounded-full bg-current transition-all duration-300 ${open ? '-translate-y-[7px] -rotate-45' : ''}`} />
+            </div>
+          </button>
+        </div>
+      </header>
 
-        {/* モバイルメニューボタン */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="relative z-50 flex h-11 w-11 items-center justify-center rounded-xl text-forest-800 lg:hidden"
-          aria-label={open ? 'メニューを閉じる' : 'メニューを開く'}
-          aria-expanded={open}
-        >
-          <div className="flex w-6 flex-col items-end gap-[5px]">
-            <span className={`h-0.5 w-6 rounded-full bg-current transition-all duration-300 ${open ? 'translate-y-[7px] rotate-45' : ''}`} />
-            <span className={`h-0.5 w-5 rounded-full bg-current transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
-            <span className={`h-0.5 w-6 rounded-full bg-current transition-all duration-300 ${open ? '-translate-y-[7px] -rotate-45' : ''}`} />
-          </div>
-        </button>
-      </div>
-
-      {/* モバイルメニュー */}
+      {/*
+        モバイルメニュー。
+        header の backdrop-blur が fixed 要素の基準枠になり、ヘッダーの高さで切れてしまうため header の外に置く。
+        z-[45]：下部の固定CTA（z-40）より上、閉じるボタンのある header（z-50）より下。
+      */}
       <div
-        className={`fixed inset-0 top-0 z-40 lg:hidden ${open ? '' : 'pointer-events-none'}`}
+        className={`fixed inset-0 z-[45] lg:hidden ${open ? '' : 'pointer-events-none'}`}
         aria-hidden={!open}
       >
         <div
@@ -175,6 +181,6 @@ export default function Header() {
           </Link>
         </nav>
       </div>
-    </header>
+    </>
   )
 }
